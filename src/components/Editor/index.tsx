@@ -12,6 +12,7 @@ const font = Courier_Prime({
 
 type Props = {
   value: string;
+  spellCheck?: boolean;
   onChange(value: string): void;
   setSelectionStart(value: number): void;
   setSelectionEnd(value: number): void;
@@ -19,11 +20,11 @@ type Props = {
 
 const SELECTION_START_KEY = "editor:selectionStart";
 const SELECTION_END_KEY = "editor:selectionEnd";
-const TEXT_KEY = "editor:value";
 const SCROLL_KEY = "editor:scrollTop";
 
 function Editor({
   value,
+  spellCheck = false,
   onChange,
   setSelectionStart,
   setSelectionEnd,
@@ -35,11 +36,6 @@ function Editor({
   }, []);
 
   useLayoutEffect(() => {
-    const preloadedText = window.localStorage.getItem(TEXT_KEY);
-    if (preloadedText !== null) {
-      onChange(preloadedText);
-    }
-
     const selectionStart = window.localStorage.getItem(SELECTION_START_KEY);
     const selectionEnd = window.localStorage.getItem(SELECTION_END_KEY);
     const scrollTop = window.localStorage.getItem(SCROLL_KEY);
@@ -81,12 +77,11 @@ function Editor({
       value={value}
       onChange={function (event) {
         onChange(event.target.value);
-        window.localStorage.setItem(TEXT_KEY, event.target.value);
       }}
       autoComplete="off"
       autoCorrect="off"
       autoCapitalize="off"
-      spellCheck="false"
+      spellCheck={spellCheck}
       ref={ref}
       onScroll={(event) => {
         if (event.target instanceof HTMLTextAreaElement) {

@@ -10,13 +10,27 @@
 }
 
 .editor {
-  padding-bottom: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   width: 100%;
   align-self: center;
   flex-grow: 1;
 }
 
+.time {
+  margin-right: 1rem;
+}
+
 .status-bar {
   display: flex;
   justify-content: space-between;
+}
+
+.action-bar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-bar > :not(:last-child) {
+  margin-right: 0.5rem;
 }

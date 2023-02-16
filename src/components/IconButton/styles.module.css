@@ -1,0 +1,10 @@
+.container {
+  color: var(--comment);
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+.selected {
+  color: var(--cyan);
+}
