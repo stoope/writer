@@ -12,6 +12,10 @@ function calculatePosition(text: string, selectionEnd: number) {
   const before = countCharacters(text.substring(0, selectionEnd));
   const after = countCharacters(text.substring(selectionEnd));
 
+  if (before + after === 0) {
+    return 0;
+  }
+
   return clamp((before / (before + after)) * 100, 0, 100);
 }
 
