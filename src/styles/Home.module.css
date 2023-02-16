@@ -16,7 +16,7 @@
   flex-grow: 1;
 }
 
-.bottom-bar {
+.status-bar {
   display: flex;
   justify-content: space-between;
 }

@@ -1,3 +1,7 @@
 .container {
   color: var(--comment);
 }
+
+.selection-range {
+  color: var(--cyan);
+}
