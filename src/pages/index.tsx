@@ -1,15 +1,22 @@
 import styles from "@/styles/Home.module.css";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CurrentTime } from "../components/CurrentTime";
 import { Editor } from "../components/Editor";
 import { IconButton } from "../components/IconButton";
 import { Statistics } from "../components/Statistics";
+import { Stopwatch } from "../components/Stopwatch";
 import { Clear } from "../icons/Clear";
+import { Fullscreen } from "../icons/Fullscreen";
+import { FullscreenExit } from "../icons/FullscreenExit";
 import { Spellcheck } from "../icons/Spellcheck";
+import { closeFullscreen, openFullscreen } from "../utils/fullscreen";
 import { useLocalStorage } from "../utils/useLocalStorage";
 
 const TEXT_KEY = "editor:value";
 const SPELLCHECK_KEY = "editor:spellCheck";
+const SELECTION_START_KEY = "editor:selectionStart";
+const SELECTION_END_KEY = "editor:selectionEnd";
+const SCROLL_KEY = "editor:scrollTop";
 
 export default function Home() {
   const { value, setValue } = useLocalStorage(TEXT_KEY, "");
@@ -18,8 +25,61 @@ export default function Home() {
     ""
   );
 
+  const editorRef = useRef<HTMLTextAreaElement>(null);
+
   const [selectionStart, setSelectionStart] = useState(0);
   const [selectionEnd, setSelectionEnd] = useState(0);
+  const [fullscreen, setFullscreen] = useState(false);
+
+  useEffect(() => {
+    editorRef.current?.focus();
+
+    const selectionStart = window.localStorage.getItem(SELECTION_START_KEY);
+    const selectionEnd = window.localStorage.getItem(SELECTION_END_KEY);
+    const scrollTop = window.localStorage.getItem(SCROLL_KEY);
+
+    setTimeout(() => {
+      if (selectionStart !== null && selectionEnd !== null) {
+        editorRef.current?.setSelectionRange(
+          Number(selectionStart),
+          Number(selectionEnd)
+        );
+      }
+      if (scrollTop !== null && editorRef.current) {
+        editorRef.current.scrollTop = Number(scrollTop);
+      }
+    }, 0);
+  }, []);
+
+  const onScroll: React.UIEventHandler<HTMLTextAreaElement> = useCallback(
+    (event) => {
+      if (event.target instanceof HTMLTextAreaElement) {
+        window.localStorage.setItem(
+          SCROLL_KEY,
+          String((event.target as HTMLTextAreaElement).scrollTop)
+        );
+      }
+    },
+    []
+  );
+
+  useEffect(() => {
+    function handleSelection() {
+      const selectionStart = editorRef.current?.selectionStart ?? 0;
+      setSelectionStart(selectionStart);
+      window.localStorage.setItem(SELECTION_START_KEY, String(selectionStart));
+
+      const selectionEnd = editorRef.current?.selectionEnd ?? 0;
+      setSelectionEnd(selectionEnd);
+      window.localStorage.setItem(SELECTION_END_KEY, String(selectionEnd));
+    }
+
+    document.addEventListener("selectionchange", handleSelection);
+
+    return () => {
+      document.removeEventListener("selectionchange", handleSelection);
+    };
+  }, [setSelectionEnd, setSelectionStart]);
 
   return (
     <main className={styles.container}>
@@ -29,12 +89,28 @@ export default function Home() {
           icon={<Spellcheck />}
           onClick={() => {
             setSpellCheck(!spellCheck ? "true" : "");
+            editorRef?.current?.focus();
+          }}
+        />
+        <IconButton
+          selected={fullscreen}
+          icon={fullscreen ? <FullscreenExit /> : <Fullscreen />}
+          onClick={() => {
+            if (fullscreen) {
+              closeFullscreen();
+              setFullscreen(false);
+            } else {
+              openFullscreen();
+              setFullscreen(true);
+            }
+            editorRef?.current?.focus();
           }}
         />
         <IconButton
           icon={<Clear />}
           onClick={() => {
             setValue("");
+            editorRef?.current?.focus();
           }}
         />
       </div>
@@ -42,20 +118,23 @@ export default function Home() {
         <Editor
           value={value}
           onChange={setValue}
-          setSelectionStart={setSelectionStart}
-          setSelectionEnd={setSelectionEnd}
           spellCheck={Boolean(spellCheck)}
+          ref={editorRef}
+          onScroll={onScroll}
         />
       </div>
       <div className={styles["status-bar"]}>
-        <div className={styles["time"]}>
-          <CurrentTime />
+        <div className={styles["stopwatch"]}>
+          <Stopwatch />
         </div>
-        <Statistics
-          text={value}
-          selectionStart={selectionStart}
-          selectionEnd={selectionEnd}
-        />
+        <CurrentTime />
+        <div className={styles["statistics"]}>
+          <Statistics
+            text={value}
+            selectionStart={selectionStart}
+            selectionEnd={selectionEnd}
+          />
+        </div>
       </div>
     </main>
   );

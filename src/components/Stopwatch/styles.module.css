@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  align-items: center;
+  color: var(--comment);
+}
+
+.container > :not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.running {
+  color: var(--cyan);
+}
