@@ -5,3 +5,7 @@
 .selection-range {
   color: var(--cyan);
 }
+
+.position {
+  white-space: pre;
+}

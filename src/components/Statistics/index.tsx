@@ -1,5 +1,6 @@
 import styles from "./styles.module.css";
 import { useMemo } from "react";
+import { useDebounce } from "use-debounce";
 import { countCharacters } from "../../utils/countCharacters";
 import { countWords } from "../../utils/countWords";
 import { countParagraphs } from "../../utils/countParagraphs";
@@ -13,8 +14,10 @@ type Props = {
 };
 
 function Statistics({ text, selectionStart, selectionEnd }: Props) {
+  const [debouncedText] = useDebounce(text, 100);
+
   const { characters, words, sentences, paragraphs, position } = useMemo(() => {
-    let selectedText = text;
+    let selectedText = debouncedText;
 
     if (selectionStart !== selectionEnd) {
       selectedText = selectedText.substring(selectionStart, selectionEnd);
@@ -24,10 +27,10 @@ function Statistics({ text, selectionStart, selectionEnd }: Props) {
     const words = countWords(selectedText);
     const sentences = countSentences(selectedText);
     const paragraphs = countParagraphs(selectedText);
-    const position = calculatePosition(text, selectionEnd);
+    const position = calculatePosition(debouncedText, selectionEnd);
 
     return { characters, words, sentences, paragraphs, position };
-  }, [selectionEnd, selectionStart, text]);
+  }, [selectionEnd, selectionStart, debouncedText]);
 
   return (
     <div className={styles.container}>
@@ -40,7 +43,9 @@ function Statistics({ text, selectionStart, selectionEnd }: Props) {
       <span title="Words count">{words}W</span>{" "}
       <span title="Sentences count">{sentences}S</span>{" "}
       <span title="Paragraphs count">{paragraphs}P</span>{" "}
-      <span title="Cursor position">{position.toFixed(2)}%</span>{" "}
+      <span title="Cursor position" className={styles.position}>
+        {position.toFixed(2).padStart(6, " ")}%
+      </span>{" "}
     </div>
   );
 }
