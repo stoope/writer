@@ -3,10 +3,9 @@ import { useState } from "react";
 import { CurrentTime } from "../components/CurrentTime";
 import { Editor } from "../components/Editor";
 import { Statistics } from "../components/Statistics";
-import { useLocalStorage } from "../utils/useLocalStorage";
 
 export default function Home() {
-  const { value, setValue } = useLocalStorage("editor:value", "");
+  const [value, setValue] = useState("");
   const [selectionStart, setSelectionStart] = useState(0);
   const [selectionEnd, setSelectionEnd] = useState(0);
 
