@@ -9,6 +9,23 @@
   background: transparent;
   border: 0;
 }
+
+.textarea::-webkit-scrollbar-track {
+  border: none;
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+.textarea::-webkit-scrollbar {
+  width: 0.5rem;
+  background-color: transparent;
+}
+
+.textarea::-webkit-scrollbar-thumb {
+  background-color: rgba(var(--comment-rgb), 0.5);
+  border-radius: 10px;
+}
+
 .textarea:focus {
   outline: none;
 }
