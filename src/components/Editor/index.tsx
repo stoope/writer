@@ -13,15 +13,16 @@ const font = Courier_Prime({
 type Props = {
   value: string;
   spellCheck?: boolean;
+  className?: string;
   onChange(value: string): void;
   onScroll: React.UIEventHandler<HTMLTextAreaElement>;
 };
 
 const Editor = forwardRef<HTMLTextAreaElement, Props>(
-  ({ value, spellCheck = false, onChange, onScroll }, ref) => {
+  ({ value, spellCheck = false, onChange, onScroll, className }, ref) => {
     return (
       <textarea
-        className={classnames(font.className, styles.textarea)}
+        className={classnames(font.className, styles.textarea, className)}
         value={value}
         onChange={function (event) {
           onChange(event.target.value);

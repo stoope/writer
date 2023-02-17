@@ -53,7 +53,7 @@ export default function Home() {
         editorRef.current.scrollTop = Number(scrollTop);
       }
     }, 0);
-  }, []);
+  }, [focusEditor]);
 
   const onScroll: React.UIEventHandler<HTMLTextAreaElement> = useCallback(
     (event) => {
@@ -87,7 +87,7 @@ export default function Home() {
 
   return (
     <main className={styles.container}>
-      <div className={styles["action-bar"]}>
+      <div className={styles["topbar"]}>
         <IconButton
           selected={Boolean(spellCheck)}
           icon={<Spellcheck />}
@@ -118,28 +118,22 @@ export default function Home() {
           }}
         />
       </div>
-      <div className={styles.editor}>
-        <Editor
-          value={value}
-          onChange={setValue}
-          spellCheck={Boolean(spellCheck)}
-          ref={editorRef}
-          onScroll={onScroll}
-        />
-      </div>
-      <div className={styles["status-bar"]}>
-        <div className={styles["stopwatch"]}>
-          <Stopwatch focusEditor={focusEditor} />
-        </div>
-        <CurrentTime />
-        <div className={styles["statistics"]}>
-          <Statistics
-            text={value}
-            selectionStart={selectionStart}
-            selectionEnd={selectionEnd}
-          />
-        </div>
-      </div>
+      <Editor
+        className={styles.editor}
+        value={value}
+        onChange={setValue}
+        spellCheck={Boolean(spellCheck)}
+        ref={editorRef}
+        onScroll={onScroll}
+      />
+      <Stopwatch focusEditor={focusEditor} className={styles["stopwatch"]} />
+      <CurrentTime className={styles["time"]} />
+      <Statistics
+        text={value}
+        selectionStart={selectionStart}
+        selectionEnd={selectionEnd}
+        className={styles["statistics"]}
+      />
     </main>
   );
 }

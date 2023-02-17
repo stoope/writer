@@ -1,5 +1,6 @@
 import styles from "./styles.module.css";
 import { useMemo } from "react";
+import classnames from "classnames";
 import { useDebounce } from "use-debounce";
 import { countCharacters } from "../../utils/countCharacters";
 import { countWords } from "../../utils/countWords";
@@ -11,9 +12,10 @@ type Props = {
   text: string;
   selectionStart: number;
   selectionEnd: number;
+  className?: string;
 };
 
-function Statistics({ text, selectionStart, selectionEnd }: Props) {
+function Statistics({ className, text, selectionStart, selectionEnd }: Props) {
   const [debouncedText] = useDebounce(text, 100);
 
   const { characters, words, sentences, paragraphs, position } = useMemo(() => {
@@ -33,7 +35,7 @@ function Statistics({ text, selectionStart, selectionEnd }: Props) {
   }, [selectionEnd, selectionStart, debouncedText]);
 
   return (
-    <div className={styles.container}>
+    <span className={classnames(styles.container, className)}>
       {selectionStart !== selectionEnd && (
         <span className={styles["selection-range"]} title="Selected range">
           [{selectionStart},{selectionEnd}]
@@ -46,7 +48,7 @@ function Statistics({ text, selectionStart, selectionEnd }: Props) {
       <span title="Cursor position" className={styles.position}>
         {position.toFixed(2).padStart(6, " ")}%
       </span>{" "}
-    </div>
+    </span>
   );
 }
 

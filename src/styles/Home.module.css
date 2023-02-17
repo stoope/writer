@@ -1,55 +1,82 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
   max-width: 700px;
   padding: 2rem 1rem;
   height: 100vh;
   margin-left: auto;
   margin-right: auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 1rem;
+  grid-template-areas:
+    "topbar topbar topbar"
+    "editor editor editor"
+    "stopwatch time statistics";
 }
 
 .editor {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  width: 100%;
-  align-self: center;
-  flex-grow: 1;
+  grid-area: editor;
 }
 
-.status-bar {
+.stopwatch {
+  grid-area: stopwatch;
+}
+
+.time {
+  grid-area: time;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 0.5rem;
+  align-items: center;
 }
 
 .statistics {
-  display: flex;
-  justify-content: flex-end;
+  grid-area: statistics;
+  margin-left: auto;
 }
 
-.action-bar {
+.topbar {
+  grid-area: topbar;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
 
-.action-bar > :not(:last-child) {
+.topbar > :not(:last-child) {
   margin-right: 0.5rem;
 }
 
-@media only screen and (max-width: 768px) {
-  .status-bar {
-    grid-template-columns: auto 1fr;
-    grid-template-rows: 1fr 1fr;
+@media only screen and (max-width: 560px) {
+  .container {
+    max-width: 100%;
+    padding: 1rem;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: 1rem;
     grid-template-areas:
-      "stopwatch stopwatch"
-      ". .";
+      "time topbar topbar"
+      "editor editor editor"
+      "stopwatch statistics statistics";
+  }
+}
+
+@media only screen and (max-width: 440px) {
+  .container {
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto 1fr auto auto;
+    gap: 1rem;
+    grid-template-areas:
+      "time topbar topbar"
+      "editor editor editor"
+      "stopwatch stopwatch stopwatch"
+      "statistics statistics statistics";
+  }
+
+  .statistics {
+    margin-right: auto;
+    margin-left: auto;
   }
 
   .stopwatch {
-    grid-area: stopwatch;
-    display: flex;
-    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
   }
 }

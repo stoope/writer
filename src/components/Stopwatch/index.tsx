@@ -17,10 +17,11 @@ function parseTime(duration: number) {
 }
 
 type Props = {
+  className?: string;
   focusEditor(): void;
 };
 
-function Stopwatch({ focusEditor }: Props) {
+function Stopwatch({ className, focusEditor }: Props) {
   const [renderTime, setRenderTime] = useState(new Date().getTime());
 
   useEffect(() => {
@@ -45,7 +46,10 @@ function Stopwatch({ focusEditor }: Props) {
   );
 
   return (
-    <div title="Current time" className={styles.container}>
+    <div
+      title="Current time"
+      className={classnames(styles.container, className)}
+    >
       <span className={classnames(isRunning() && styles.running)}>
         {String(hours).padStart(2, "0")}:{String(minutes).padStart(2, "0")}:
         {String(seconds).padStart(2, "0")}:

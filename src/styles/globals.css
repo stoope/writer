@@ -83,6 +83,8 @@ html {
   background-color: var(--background);
   color: var(--foreground);
   font-size: 16px;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 * {
