@@ -98,3 +98,9 @@ html {
   background-color: var(--selection);
   opacity: 1;
 }
+
+html,
+body,
+#__next {
+  height: 100%;
+}
