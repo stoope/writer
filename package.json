@@ -14,16 +14,19 @@
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
     "classnames": "^2.3.2",
+    "debounce": "^1.2.1",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-use-precision-timer": "^3.3.1",
-    "typescript": "4.9.5",
-    "use-debounce": "^9.0.3"
+    "typescript": "4.9.5"
   },
   "volta": {
     "node": "18.14.0"
+  },
+  "devDependencies": {
+    "@types/debounce": "^1.2.1"
   }
 }

@@ -5,7 +5,8 @@ import styles from "./styles.module.css";
 import { Reset } from "../../icons/Reset";
 import { Start } from "../../icons/Start";
 import { Pause } from "../../icons/Pause";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { editorContext } from "../../stores/editor";
 
 function parseTime(duration: number) {
   const milliseconds = Math.floor(duration % 1000);
@@ -18,18 +19,11 @@ function parseTime(duration: number) {
 
 type Props = {
   className?: string;
-  focusEditor(): void;
 };
 
-function Stopwatch({ className, focusEditor }: Props) {
-  const [renderTime, setRenderTime] = useState(new Date().getTime());
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setRenderTime(new Date().getTime()), 1);
-    return () => {
-      clearTimeout(timeout);
-    };
-  });
+function Stopwatch({ className }: Props) {
+  const { focus } = useContext(editorContext);
+  const [, setRenderTime] = useState(new Date().getTime());
 
   const {
     isRunning,
@@ -40,6 +34,15 @@ function Stopwatch({ className, focusEditor }: Props) {
     getElapsedRunningTime,
     isStarted,
   } = useStopwatch();
+
+  useEffect(() => {
+    if (isRunning()) {
+      const timeout = setTimeout(() => setRenderTime(new Date().getTime()), 1);
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  });
 
   const { hours, minutes, seconds, milliseconds } = parseTime(
     getElapsedRunningTime()
@@ -61,7 +64,7 @@ function Stopwatch({ className, focusEditor }: Props) {
           icon={<Pause width={24} height={24} />}
           onClick={() => {
             pause();
-            focusEditor();
+            focus();
           }}
         />
       ) : (
@@ -74,7 +77,7 @@ function Stopwatch({ className, focusEditor }: Props) {
             } else {
               start();
             }
-            focusEditor();
+            focus();
           }}
         />
       )}
@@ -83,7 +86,7 @@ function Stopwatch({ className, focusEditor }: Props) {
         icon={<Reset width={24} height={24} />}
         onClick={() => {
           stop();
-          focusEditor();
+          focus();
         }}
       />
     </div>

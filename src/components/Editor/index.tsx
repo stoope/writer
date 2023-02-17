@@ -1,7 +1,9 @@
 import classnames from "classnames";
 import { Courier_Prime } from "@next/font/google";
 import styles from "./styles.module.css";
-import { forwardRef } from "react";
+import { useContext } from "react";
+import { editorRefContext } from "../../stores/editorRef";
+import { editorContext } from "../../stores/editor";
 
 const font = Courier_Prime({
   subsets: ["latin"],
@@ -11,33 +13,33 @@ const font = Courier_Prime({
 });
 
 type Props = {
-  value: string;
-  spellCheck?: boolean;
   className?: string;
-  onChange(value: string): void;
-  onScroll: React.UIEventHandler<HTMLTextAreaElement>;
 };
 
-const Editor = forwardRef<HTMLTextAreaElement, Props>(
-  ({ value, spellCheck = false, onChange, onScroll, className }, ref) => {
-    return (
-      <textarea
-        className={classnames(font.className, styles.textarea, className)}
-        value={value}
-        onChange={function (event) {
-          onChange(event.target.value);
-        }}
-        autoComplete="off"
-        autoCorrect="off"
-        autoCapitalize="off"
-        spellCheck={spellCheck}
-        ref={ref}
-        onScroll={onScroll}
-      ></textarea>
-    );
-  }
-);
+function Editor({ className }: Props) {
+  const ref = useContext(editorRefContext);
+  const { value, spellCheck, setValue, setScrollTop } =
+    useContext(editorContext);
 
-Editor.displayName = "Editor";
+  return (
+    <textarea
+      className={classnames(font.className, styles.textarea, className)}
+      value={value}
+      onChange={function (event) {
+        setValue(event.target.value);
+      }}
+      autoComplete="off"
+      autoCorrect="off"
+      autoCapitalize="off"
+      spellCheck={spellCheck}
+      ref={ref}
+      onScroll={(event) => {
+        if (event.target instanceof HTMLTextAreaElement) {
+          setScrollTop((event.target as HTMLTextAreaElement).scrollTop);
+        }
+      }}
+    ></textarea>
+  );
+}
 
 export { Editor };

@@ -7,6 +7,8 @@ function openFullscreen() {
   } else if ((document.documentElement as any).msRequestFullscreen) {
     /* IE11 */
     (document.documentElement as any).msRequestFullscreen();
+  } else {
+    throw Error("Can't request fullscreen mode");
   }
 }
 
@@ -19,6 +21,8 @@ function closeFullscreen() {
   } else if ((document as any).msExitFullscreen) {
     /* IE11 */
     (document as any).msExitFullscreen();
+  } else {
+    throw Error("Can't exit fullscreen mode");
   }
 }
 export { openFullscreen, closeFullscreen };
