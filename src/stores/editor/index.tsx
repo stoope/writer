@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import { editorRefContext } from "../editorRef";
-import { getItem, setItem as _setItem } from "../persistence";
+import { getItem, setItem } from "../persistence";
 import debounce from "debounce";
 
 export const VALUE_KEY = "editor:value";
@@ -33,7 +33,25 @@ const editorContext = createContext<EditorContextProps>({
   selectionEnd: 0,
 } as EditorContextProps);
 
-const setItem = debounce(_setItem, 200);
+const setValueToDB = debounce(function (value: string) {
+  setItem(VALUE_KEY, value);
+}, 300);
+
+const setSpellcheckToDB = debounce(function (value: boolean) {
+  setItem(SPELLCHECK_KEY, value);
+}, 300);
+
+const setSelectionStartToDB = debounce(function (value: number) {
+  setItem(SELECTION_START_KEY, value);
+}, 300);
+
+const setSelectionEndToDB = debounce(function (value: number) {
+  setItem(SELECTION_END_KEY, value);
+}, 300);
+
+const setScrollTopToDB = debounce(function (value: number) {
+  setItem(SCROLL_KEY, value);
+}, 300);
 
 function EditorContext({ children }: PropsWithChildren<{}>) {
   const ref = useContext(editorRefContext);
@@ -47,17 +65,17 @@ function EditorContext({ children }: PropsWithChildren<{}>) {
   }, [ref]);
 
   const setScrollTop = useCallback((value: number) => {
-    setItem(SCROLL_KEY, value);
+    setScrollTopToDB(value);
   }, []);
 
   const setValue = useCallback((value: string) => {
     _setValue(value);
-    setItem(VALUE_KEY, value);
+    setValueToDB(value);
   }, []);
 
   const setSpellCheck = useCallback((value: boolean) => {
     _setSpellCheck(value);
-    setItem(SPELLCHECK_KEY, value);
+    setSpellcheckToDB(value);
   }, []);
 
   useEffect(() => {
@@ -68,11 +86,11 @@ function EditorContext({ children }: PropsWithChildren<{}>) {
     function handleSelection() {
       const selectionStart = ref.current?.selectionStart ?? 0;
       setSelectionStart(selectionStart);
-      setItem(SELECTION_START_KEY, selectionStart);
+      setSelectionStartToDB(selectionStart);
 
       const selectionEnd = ref.current?.selectionEnd ?? 0;
       setSelectionEnd(selectionEnd);
-      setItem(SELECTION_END_KEY, selectionEnd);
+      setSelectionEndToDB(selectionEnd);
     }
 
     document.addEventListener("selectionchange", handleSelection);

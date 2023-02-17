@@ -6,8 +6,10 @@ type JSONValue =
   | Array<JSONValue>;
 
 function setItem(key: string, value: JSONValue) {
+  console.log(key, value);
   window.localStorage.setItem(key, JSON.stringify(value));
 }
+
 function getItem<T>(key: string): T | null {
   const item = window.localStorage.getItem(key);
 
