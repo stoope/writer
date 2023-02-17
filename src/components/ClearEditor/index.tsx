@@ -11,7 +11,7 @@ function ClearEditor() {
     focus();
   }, [focus, setValue]);
 
-  return <IconButton icon={<Clear />} onClick={clear} />;
+  return <IconButton icon={<Clear />} onClick={clear} title="Clear editor" />;
 }
 
 export { ClearEditor };

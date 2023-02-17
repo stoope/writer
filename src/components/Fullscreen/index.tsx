@@ -29,6 +29,7 @@ function Fullscreen() {
       selected={fullscreen}
       icon={fullscreen ? <FullscreenExit /> : <FullscreenIcon />}
       onClick={toggle}
+      title={fullscreen ? "Disable fullscreen" : "Enable fullscreen"}
     />
   );
 }

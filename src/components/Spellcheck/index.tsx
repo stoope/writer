@@ -16,6 +16,7 @@ function Spellcheck() {
       selected={spellCheck}
       icon={<SpellcheckIcon />}
       onClick={toggle}
+      title={spellCheck ? "Disable spellcheck" : "Enable spellcheck"}
     />
   );
 }
