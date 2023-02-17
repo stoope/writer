@@ -12,7 +12,11 @@ function getItem<T>(key: string): T | null {
   const item = window.localStorage.getItem(key);
 
   if (item !== null) {
-    return JSON.parse(item) as T;
+    try {
+      return JSON.parse(item) as T;
+    } catch (error) {
+      return null;
+    }
   }
 
   return null;
