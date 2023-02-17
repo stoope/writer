@@ -16,7 +16,11 @@ function parseTime(duration: number) {
   return { hours, minutes, seconds, milliseconds };
 }
 
-function Stopwatch() {
+type Props = {
+  focusEditor(): void;
+};
+
+function Stopwatch({ focusEditor }: Props) {
   const [renderTime, setRenderTime] = useState(new Date().getTime());
 
   useEffect(() => {
@@ -51,7 +55,10 @@ function Stopwatch() {
         <IconButton
           selected={isRunning()}
           icon={<Pause width={24} height={24} />}
-          onClick={() => pause()}
+          onClick={() => {
+            pause();
+            focusEditor();
+          }}
         />
       ) : (
         <IconButton
@@ -63,13 +70,17 @@ function Stopwatch() {
             } else {
               start();
             }
+            focusEditor();
           }}
         />
       )}
       <IconButton
         selected={isRunning()}
         icon={<Reset width={24} height={24} />}
-        onClick={() => stop()}
+        onClick={() => {
+          stop();
+          focusEditor();
+        }}
       />
     </div>
   );

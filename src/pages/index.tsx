@@ -31,8 +31,12 @@ export default function Home() {
   const [selectionEnd, setSelectionEnd] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
 
-  useEffect(() => {
+  const focusEditor = useCallback(() => {
     editorRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    focusEditor();
 
     const selectionStart = window.localStorage.getItem(SELECTION_START_KEY);
     const selectionEnd = window.localStorage.getItem(SELECTION_END_KEY);
@@ -89,7 +93,7 @@ export default function Home() {
           icon={<Spellcheck />}
           onClick={() => {
             setSpellCheck(!spellCheck ? "true" : "");
-            editorRef?.current?.focus();
+            focusEditor();
           }}
         />
         <IconButton
@@ -103,14 +107,14 @@ export default function Home() {
               openFullscreen();
               setFullscreen(true);
             }
-            editorRef?.current?.focus();
+            focusEditor();
           }}
         />
         <IconButton
           icon={<Clear />}
           onClick={() => {
             setValue("");
-            editorRef?.current?.focus();
+            focusEditor();
           }}
         />
       </div>
@@ -125,7 +129,7 @@ export default function Home() {
       </div>
       <div className={styles["status-bar"]}>
         <div className={styles["stopwatch"]}>
-          <Stopwatch />
+          <Stopwatch focusEditor={focusEditor} />
         </div>
         <CurrentTime />
         <div className={styles["statistics"]}>
