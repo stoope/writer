@@ -1,0 +1,107 @@
+:root {
+  --background: rgb(var(--background-rgb));
+  --foreground: rgb(var(--foreground-rgb));
+  --comment: rgb(var(--comment-rgb));
+  --selection: rgb(var(--selection-rgb));
+  --cyan: rgb(var(--cyan-rgb));
+  --green: rgb(var(--green-rgb));
+  --orange: rgb(var(--orange-rgb));
+  --pink: rgb(var(--pink-rgb));
+  --purple: rgb(var(--purple-rgb));
+  --red: rgb(var(--red-rgb));
+  --yellow: rgb(var(--yellow-rgb));
+  --background: rgb(var(--background-rgb));
+  --foreground-transparent: rgba(var(--foreground-rgb), 0.1);
+  --comment-transparent: rgba(var(--comment-rgb), 0.1);
+  --selection-transparent: rgba(var(--selection-rgb), 0.1);
+  --cyan-transparent: rgba(var(--cyan-rgb), 0.1);
+  --green-transparent: rgba(var(--green-rgb), 0.1);
+  --orange-transparent: rgba(var(--orange-rgb), 0.1);
+  --pink-transparent: rgba(var(--pink-rgb), 0.1);
+  --purple-transparent: rgba(var(--purple-rgb), 0.1);
+  --red-transparent: rgba(var(--red-rgb), 0.1);
+  --yellow-transparent: rgba(var(--yellow-rgb), 0.1);
+  --background-rgb: 34, 33, 44;
+  --foreground-rgb: 248, 248, 242;
+  --comment-rgb: 121, 112, 169;
+  --selection-rgb: 69, 65, 88;
+  --cyan-rgb: 128, 255, 234;
+  --green-rgb: 138, 255, 128;
+  --orange-rgb: 255, 202, 128;
+  --pink-rgb: 255, 128, 191;
+  --purple-rgb: 149, 128, 255;
+  --red-rgb: 255, 149, 128;
+  --yellow-rgb: 255, 255, 128;
+}
+
+.cyan-color {
+  color: var(--cyan);
+}
+
+.green-color {
+  color: var(--green);
+}
+
+.orange-color {
+  color: var(--orange);
+}
+
+.pink-color {
+  color: var(--pink);
+}
+
+.purple-color {
+  color: var(--purple);
+}
+
+.red-color {
+  color: var(--red);
+}
+
+.yellow-color {
+  color: var(--yellow);
+}
+
+.background-color {
+  color: var(--background);
+}
+
+.foreground-color {
+  color: var(--foreground);
+}
+
+.comment-color {
+  color: var(--comment);
+}
+
+.selection-color {
+  color: var(--selection);
+}
+
+html {
+  color-scheme: dark;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-size: 16px;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+  font-family: "Fira Code", monospace;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+::selection {
+  color: var(--foreground);
+  background-color: var(--selection);
+  opacity: 1;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}

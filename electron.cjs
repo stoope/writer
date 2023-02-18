@@ -24,10 +24,9 @@ const createWindow = () => {
   });
 
   if (process.env.NODE_ENV !== "development") {
-    console.log();
     mainWindow.loadFile(path.join(__dirname, "index.html"));
   } else {
-    mainWindow.loadURL("http://127.0.0.1:5000/");
+    mainWindow.loadURL("http://localhost:5000/");
   }
 
   mainWindow.webContents.openDevTools();

@@ -1,40 +1,105 @@
 <script lang="ts">
-  import Counter from "./lib/Counter.svelte";
+  import "@fontsource/fira-code";
+  import ClearEditor from "./lib/ClearEditor.svelte";
+  import Editor from "./lib/Editor.svelte";
+  import Spellcheck from "./lib/Spellcheck.svelte";
+  import Statistics from "./lib/Statistics.svelte";
+  import Stopwatch from "./lib/Stopwatch.svelte";
+  import Time from "./lib/Time.svelte";
 </script>
 
-<main>
-  <div />
-  <h1>Vite + Svelte</h1>
-
-  <div class="card">
-    <Counter />
+<main class="container">
+  <div class="time">
+    <Time />
   </div>
-
-  <p>
-    Check out <a
-      href="https://github.com/sveltejs/kit#readme"
-      target="_blank"
-      rel="noreferrer">SvelteKit</a
-    >, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">Click on the Vite and Svelte logos to learn more</p>
+  <div class="actions">
+    <Spellcheck />
+    <ClearEditor />
+  </div>
+  <div class="editor">
+    <Editor />
+  </div>
+  <div class="stopwatch">
+    <Stopwatch />
+  </div>
+  <div class="statistics">
+    <Statistics />
+  </div>
 </main>
 
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
+  .container {
+    max-width: 700px;
+    padding: 2rem 1rem;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: 1rem;
+    grid-template-areas:
+      "time actions actions"
+      "editor editor editor"
+      "stopwatch statistics statistics";
   }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
+
+  .editor {
+    grid-area: editor;
   }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
+
+  .stopwatch {
+    grid-area: stopwatch;
   }
-  .read-the-docs {
-    color: #888;
+
+  .time {
+    grid-area: time;
+    display: grid;
+    align-items: center;
+  }
+
+  .statistics {
+    grid-area: statistics;
+    margin-left: auto;
+  }
+
+  .actions {
+    grid-area: actions;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  :global(.actions > :not(:last-child)) {
+    margin-right: 0.5rem;
+  }
+
+  @media only screen and (max-width: 560px) {
+    .container {
+      padding: 1rem;
+    }
+  }
+
+  @media only screen and (max-width: 440px) {
+    .container {
+      grid-template-columns: 1fr auto 1fr;
+      grid-template-rows: auto 1fr auto auto;
+      gap: 1rem;
+      grid-template-areas:
+        "time actions actions"
+        "editor editor editor"
+        "stopwatch stopwatch stopwatch"
+        "statistics statistics statistics";
+    }
+
+    .statistics {
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .stopwatch {
+      margin-right: auto;
+      margin-left: auto;
+    }
   }
 </style>

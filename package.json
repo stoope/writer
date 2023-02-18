@@ -6,7 +6,7 @@
   "main": "electron.cjs",
   "scripts": {
     "start": "NODE_ENV=development concurrently \"npm run frontend:start\" \"npm run electron:start\"",
-    "frontend:start": "vite --port 5000",
+    "frontend:start": "vite --port 5000 --host localhost",
     "frontend:build": "vite build",
     "frontend:preview": "vite preview",
     "frontend:check": "svelte-check --tsconfig ./tsconfig.json",
@@ -17,6 +17,7 @@
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.2",
     "@tsconfig/svelte": "^3.0.0",
+    "@types/debounce": "^1.2.1",
     "concurrently": "^7.6.0",
     "electron": "^23.1.0",
     "electron-builder": "^22.10.3",
@@ -33,5 +34,12 @@
   },
   "volta": {
     "node": "18.14.1"
+  },
+  "dependencies": {
+    "@electron/remote": "^2.0.9",
+    "@fontsource/courier-prime": "^4.5.9",
+    "@fontsource/fira-code": "^4.5.13",
+    "debounce": "^1.2.1",
+    "remove": "^0.1.5"
   }
 }
