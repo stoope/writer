@@ -1,32 +1,37 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
+  "name": "writer",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "electron.cjs",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@next/font": "^13.1.6",
-    "@types/node": "18.13.0",
-    "@types/react": "18.0.28",
-    "@types/react-dom": "18.0.11",
-    "classnames": "^2.3.2",
-    "debounce": "^1.2.1",
-    "eslint": "8.34.0",
-    "eslint-config-next": "13.1.6",
-    "next": "13.1.6",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-use-precision-timer": "^3.3.1",
-    "typescript": "4.9.5"
-  },
-  "volta": {
-    "node": "18.14.0"
+    "start": "NODE_ENV=development concurrently \"npm run frontend:start\" \"npm run electron:start\"",
+    "frontend:start": "vite --port 5000",
+    "frontend:build": "vite build",
+    "frontend:preview": "vite preview",
+    "frontend:check": "svelte-check --tsconfig ./tsconfig.json",
+    "electron:start": "electron .",
+    "electron:build": "electron-builder",
+    "build": "frontend:build && electron:build"
   },
   "devDependencies": {
-    "@types/debounce": "^1.2.1"
+    "@sveltejs/vite-plugin-svelte": "^2.0.2",
+    "@tsconfig/svelte": "^3.0.0",
+    "concurrently": "^7.6.0",
+    "electron": "^23.1.0",
+    "electron-builder": "^22.10.3",
+    "svelte": "^3.55.1",
+    "svelte-check": "^2.10.3",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.0"
+  },
+  "build": {
+    "files": [
+      "src/**/*"
+    ]
+  },
+  "volta": {
+    "node": "18.14.1"
   }
 }
