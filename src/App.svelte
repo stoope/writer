@@ -1,6 +1,7 @@
 <script lang="ts">
   import "@fontsource/fira-code";
   import ClearEditor from "./lib/ClearEditor.svelte";
+  import DarkMode from "./lib/DarkMode.svelte";
   import Editor from "./lib/Editor.svelte";
   import Spellcheck from "./lib/Spellcheck.svelte";
   import Statistics from "./lib/Statistics.svelte";
@@ -13,6 +14,7 @@
     <Time />
   </div>
   <div class="actions">
+    <DarkMode />
     <Spellcheck />
     <ClearEditor />
   </div>
@@ -29,13 +31,13 @@
 
 <style>
   .container {
-    max-width: 700px;
+    max-width: 750px;
     padding: 2rem 1rem;
     height: 100%;
     margin-left: auto;
     margin-right: auto;
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: auto auto 1fr;
     grid-template-rows: auto 1fr auto;
     gap: 1rem;
     grid-template-areas:

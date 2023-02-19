@@ -7,7 +7,6 @@ const createWindow = () => {
     height: 800,
     minWidth: 360,
     minHeight: 360,
-    backgroundColor: "#22212C",
     icon: path.join(
       __dirname,
       "public",
@@ -15,9 +14,9 @@ const createWindow = () => {
         process.platform
       ] || "favicon.ico"
     ),
-    // frame: process.platform !== "darwin",
-    // skipTaskbar: process.platform === "darwin",
-    // autoHideMenuBar: process.platform === "darwin",
+    frame: process.platform !== "darwin",
+    skipTaskbar: process.platform === "darwin",
+    autoHideMenuBar: process.platform === "darwin",
     webPreferences: {
       backgroundThrottling: false,
     },

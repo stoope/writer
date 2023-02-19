@@ -24,6 +24,6 @@
     justify-content: center;
   }
   .selected {
-    color: var(--cyan);
+    color: var(--accent);
   }
 </style>

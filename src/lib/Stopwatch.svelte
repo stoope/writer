@@ -122,6 +122,6 @@
   }
 
   .running {
-    color: var(--cyan);
+    color: var(--accent);
   }
 </style>

@@ -47,6 +47,7 @@
     resize: none;
     background: transparent;
     border: 0;
+    color: var(--foreground);
   }
   .editor::-webkit-scrollbar-track {
     border: none;

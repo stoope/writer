@@ -57,7 +57,7 @@
   }
 
   .selection-range {
-    color: var(--cyan);
+    color: var(--accent);
   }
 
   .position {
