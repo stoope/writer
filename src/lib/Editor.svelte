@@ -38,7 +38,7 @@
 <style>
   .editor {
     font-family: "Courier Prime", monospace;
-    font-size: 1rem;
+    font-size: 1.2rem;
     width: 100%;
     height: 100%;
     -webkit-font-smoothing: antialiased;
