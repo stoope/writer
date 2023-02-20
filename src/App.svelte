@@ -33,6 +33,7 @@
 
 <style>
   .container {
+    -webkit-app-region: no-drag;
     max-width: 750px;
     padding: 2rem 1rem;
     height: 100%;

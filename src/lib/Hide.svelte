@@ -10,7 +10,7 @@
 
 <IconButton
   clickHandler={toggle}
-  style="background-color: var(--orange); border-radius: 50%; color: rgb(34, 33, 44); padding: 3px;"
+  style="background-color: var(--orange); border-radius: 50%; color: rgb(34, 33, 44); padding: 3px; -webkit-app-region: no-drag;"
   title="Minimize"
 >
   <svg

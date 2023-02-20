@@ -13,8 +13,13 @@
 <style>
   .container {
     position: fixed;
-    top: 0.5rem;
-    right: 0rem;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding-top: 0.5rem;
     display: flex;
+    justify-content: flex-end;
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
   }
 </style>

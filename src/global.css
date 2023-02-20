@@ -33,6 +33,7 @@ html {
   --purple-rgb: 149, 128, 255;
   --red-rgb: 255, 149, 128;
   --yellow-rgb: 255, 255, 128;
+  -webkit-app-region: drag;
 }
 
 html[data-theme="light"] {
