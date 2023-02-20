@@ -7,9 +7,11 @@
   import Statistics from "./lib/Statistics.svelte";
   import Stopwatch from "./lib/Stopwatch.svelte";
   import Time from "./lib/Time.svelte";
+  import Titlebar from "./lib/Titlebar.svelte";
 </script>
 
 <main class="container">
+  <Titlebar />
   <div class="time">
     <Time />
   </div>
@@ -77,12 +79,6 @@
   }
 
   @media only screen and (max-width: 560px) {
-    .container {
-      padding: 1rem;
-    }
-  }
-
-  @media only screen and (max-width: 440px) {
     .container {
       grid-template-columns: 1fr auto 1fr;
       grid-template-rows: auto 1fr auto auto;

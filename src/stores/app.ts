@@ -25,3 +25,17 @@ export function toggle() {
     return !value;
   });
 }
+
+setTimeout(function () {
+  document.head.insertAdjacentHTML(
+    "beforeend",
+    `<style type="text/css">
+  html,
+  html *,
+  html *:before,
+  html *:after {
+    transition: color 200ms, background-color 200ms !important;
+  }</style>
+  `
+  );
+}, 300);
