@@ -1,13 +1,18 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
-const Config = require("electron-config");
-const config = new Config();
+const Store = require("electron-store");
+
+const store = new Store();
+
+Store.initRenderer();
+
+const WINDOW_BONDS_KEY = "editor:winBounds";
 
 let isShown = true;
 let currentWindow;
 
 const createWindow = () => {
-  const windowBound = config.get("winBounds") ?? {};
+  const windowBound = store.get(WINDOW_BONDS_KEY) ?? {};
 
   const mainWindow = new BrowserWindow({
     width: 600,
@@ -51,7 +56,7 @@ const createWindow = () => {
   });
 
   currentWindow.on("close", function () {
-    config.set("winBounds", currentWindow.getBounds());
+    store.set(WINDOW_BONDS_KEY, currentWindow.getBounds());
   });
 
   currentWindow.on("closed", function () {
@@ -66,7 +71,7 @@ const createWindow = () => {
     isShown = true;
   });
 
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
 
 app.whenReady().then(() => {
