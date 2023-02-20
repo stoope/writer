@@ -1,6 +1,5 @@
 <script lang="ts">
   import "@fontsource/fira-code";
-  import ClearEditor from "./lib/ClearEditor.svelte";
   import DarkMode from "./lib/DarkMode.svelte";
   import Editor from "./lib/Editor.svelte";
   import Spellcheck from "./lib/Spellcheck.svelte";
@@ -18,7 +17,6 @@
   <div class="actions">
     <DarkMode />
     <Spellcheck />
-    <ClearEditor />
   </div>
   <div class="editor">
     <Editor />

@@ -71,7 +71,7 @@ const createWindow = () => {
     isShown = true;
   });
 
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 };
 
 app.whenReady().then(() => {
