@@ -1,7 +1,3 @@
-import Store from "electron-store";
-
-const store = new Store();
-
 type JSONValue =
   | string
   | number
@@ -10,13 +6,21 @@ type JSONValue =
   | Array<JSONValue>;
 
 function setItem(key: string, value: JSONValue) {
-  store.set(key, value);
+  window.localStorage.setItem(key, JSON.stringify(value));
 }
 
 function getItem<T>(key: string): T | null {
-  const item = store.get(key) as T;
+  const item = window.localStorage.getItem(key);
 
-  return item ?? null;
+  if (item !== null) {
+    try {
+      return JSON.parse(item) as T;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  return null;
 }
 
 export { setItem, getItem };

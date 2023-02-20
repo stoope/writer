@@ -6,9 +6,9 @@
   "type": "module",
   "main": "electron.cjs",
   "scripts": {
-    "start": "electron-forge start",
+    "start": "NODE_ENV=development concurrently \"npm run frontend:start\" \"npm run electron:start\"",
     "frontend:start": "vite --port 5000 --host localhost",
-    "frontend:build": "ASSET_URL=dist vite build",
+    "frontend:build": "vite build",
     "frontend:preview": "vite preview",
     "frontend:check": "svelte-check --tsconfig ./tsconfig.json",
     "electron:start": "electron .",
@@ -28,10 +28,10 @@
     "concurrently": "^7.6.0",
     "electron": "^23.1.0",
     "svelte": "^3.55.1",
-    "svelte-check": "^2.10.3",
+    "svelte-check": "^3.0.3",
     "tslib": "^2.5.0",
-    "typescript": "^4.9.3",
-    "vite": "^4.1.0"
+    "typescript": "^4.9.5",
+    "vite": "^4.1.3"
   },
   "volta": {
     "node": "18.14.1"
@@ -41,7 +41,6 @@
     "@fontsource/courier-prime": "^4.5.9",
     "@fontsource/fira-code": "^4.5.13",
     "debounce": "^1.2.1",
-    "electron-config": "^2.0.0",
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^8.1.0",
     "remove": "^0.1.5"

@@ -4,8 +4,6 @@ const Store = require("electron-store");
 
 const store = new Store();
 
-Store.initRenderer();
-
 const WINDOW_BONDS_KEY = "editor:winBounds";
 
 let isShown = true;
@@ -37,12 +35,6 @@ const createWindow = () => {
     ...windowBound,
   });
 
-  if (process.env.NODE_ENV !== "development") {
-    mainWindow.loadFile(path.join(__dirname, "dist", "index.html"));
-  } else {
-    mainWindow.loadURL("http://localhost:5000/");
-  }
-
   currentWindow = mainWindow;
 
   ipcMain.handle("toggleFullscreen", function () {
@@ -71,7 +63,13 @@ const createWindow = () => {
     isShown = true;
   });
 
-  // mainWindow.webContents.openDevTools();
+  if (process.env.NODE_ENV !== "development") {
+    mainWindow.loadFile(path.join(__dirname, "dist", "index.html"));
+  } else {
+    mainWindow.loadURL("http://localhost:5000/");
+  }
+
+  mainWindow.webContents.openDevTools();
 };
 
 app.whenReady().then(() => {
