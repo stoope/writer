@@ -69,7 +69,7 @@ const createWindow = () => {
     mainWindow.loadURL("http://localhost:5000/");
   }
 
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 };
 
 app.whenReady().then(() => {
