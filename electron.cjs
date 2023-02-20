@@ -1,10 +1,14 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
+const Config = require("electron-config");
+const config = new Config();
 
 let isShown = true;
 let currentWindow;
 
 const createWindow = () => {
+  const windowBound = config.get("winBounds") ?? {};
+
   const mainWindow = new BrowserWindow({
     width: 600,
     height: 800,
@@ -25,6 +29,7 @@ const createWindow = () => {
       preload: path.resolve(__dirname, "electron-preload.cjs"),
       contextIsolation: false,
     },
+    ...windowBound,
   });
 
   if (process.env.NODE_ENV !== "development") {
@@ -45,6 +50,22 @@ const createWindow = () => {
     currentWindow.minimize();
   });
 
+  currentWindow.on("close", function () {
+    config.set("winBounds", currentWindow.getBounds());
+  });
+
+  currentWindow.on("closed", function () {
+    app.quit();
+  });
+
+  currentWindow.on("hide", function () {
+    isShown = false;
+  });
+
+  currentWindow.on("show", function () {
+    isShown = true;
+  });
+
   // mainWindow.webContents.openDevTools();
 };
 
@@ -53,18 +74,6 @@ app.whenReady().then(() => {
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
-
-    currentWindow.on("closed", function () {
-      app.quit();
-    });
-
-    currentWindow.on("hide", function () {
-      isShown = false;
-    });
-
-    currentWindow.on("show", function () {
-      isShown = true;
-    });
   });
 });
 
