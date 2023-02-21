@@ -1,7 +1,7 @@
-const { ipcRenderer } = require("electron");
+const { ipcRenderer, contextBridge } = require("electron");
 
-window.electron = {
-  toggleFullscreen: () => ipcRenderer.invoke("toggleFullscreen"),
-  close: () => ipcRenderer.invoke("close"),
-  minimize: () => ipcRenderer.invoke("minimize"),
-};
+contextBridge.exposeInMainWorld("ipcRenderer", {
+  send: ipcRenderer.send.bind(ipcRenderer),
+  on: ipcRenderer.on.bind(ipcRenderer),
+  invoke: ipcRenderer.invoke.bind(ipcRenderer),
+});

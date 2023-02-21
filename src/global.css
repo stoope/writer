@@ -1,9 +1,7 @@
 html {
   --background: rgb(var(--background-rgb));
-  --accent: var(--cyan);
   --foreground: rgb(var(--foreground-rgb));
   --comment: rgb(var(--comment-rgb));
-  --selection: rgb(var(--selection-rgb));
   --cyan: rgb(var(--cyan-rgb));
   --green: rgb(var(--green-rgb));
   --orange: rgb(var(--orange-rgb));
@@ -22,8 +20,6 @@ html {
   --purple-transparent: rgba(var(--purple-rgb), 0.1);
   --red-transparent: rgba(var(--red-rgb), 0.1);
   --yellow-transparent: rgba(var(--yellow-rgb), 0.1);
-  --background-rgb: 34, 33, 44;
-  --foreground-rgb: 248, 248, 242;
   --comment-rgb: 121, 112, 169;
   --selection-rgb: 69, 65, 88;
   --cyan-rgb: 128, 255, 234;
@@ -36,11 +32,29 @@ html {
   -webkit-app-region: drag;
 }
 
-html[data-theme="light"] {
-  --background-rgb: 248, 248, 242;
-  --foreground-rgb: 34, 33, 44;
-  --accent: #a99f70;
-  --selection: rgba(var(--selection-rgb), 0.3);
+@media (prefers-color-scheme: dark) {
+  html {
+    --background-rgb: 34, 33, 44;
+    --foreground-rgb: 248, 248, 242;
+    --accent: var(--cyan);
+    --selection: rgb(var(--selection-rgb));
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  html {
+    --background-rgb: 248, 248, 242;
+    --foreground-rgb: 34, 33, 44;
+    --accent: #a99f70;
+    --selection: rgba(var(--selection-rgb), 0.3);
+  }
+}
+
+html,
+html *,
+html *:before,
+html *:after {
+  transition: color 200ms, background-color 200ms !important;
 }
 
 .cyan-color {

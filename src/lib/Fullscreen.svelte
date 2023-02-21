@@ -3,7 +3,7 @@
   import IconButton from "./IconButton.svelte";
 
   function toggle() {
-    window.electron.toggleFullscreen();
+    window.ipcRenderer.invoke("toggleFullscreen");
     focus();
   }
 </script>

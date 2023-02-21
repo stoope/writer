@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, Menu, nativeTheme } = require("electron");
 const path = require("path");
 const Store = require("electron-store");
 
@@ -6,10 +6,9 @@ const store = new Store();
 
 const WINDOW_BONDS_KEY = "editor:winBounds";
 
-let isShown = true;
-let currentWindow;
+const isMac = process.platform === "darwin";
 
-const createWindow = () => {
+const createWindow = async () => {
   const windowBound = store.get(WINDOW_BONDS_KEY) ?? {};
 
   const mainWindow = new BrowserWindow({
@@ -24,52 +23,61 @@ const createWindow = () => {
         process.platform
       ] || "favicon.ico"
     ),
-    frame: process.platform !== "darwin",
-    skipTaskbar: process.platform === "darwin",
-    autoHideMenuBar: process.platform === "darwin",
+    frame: !isMac,
+    skipTaskbar: isMac,
+    autoHideMenuBar: isMac,
     webPreferences: {
       backgroundThrottling: false,
       preload: path.resolve(__dirname, "electron-preload.cjs"),
-      contextIsolation: false,
+      contextIsolation: true,
     },
     ...windowBound,
   });
 
-  currentWindow = mainWindow;
-
   ipcMain.handle("toggleFullscreen", function () {
-    currentWindow.setFullScreen(!currentWindow.isFullScreen());
+    mainWindow.setFullScreen(!mainWindow.isFullScreen());
   });
+
   ipcMain.handle("close", function () {
     app.quit();
   });
+
   ipcMain.handle("minimize", function () {
-    currentWindow.minimize();
+    mainWindow.minimize();
   });
 
-  currentWindow.on("close", function () {
-    store.set(WINDOW_BONDS_KEY, currentWindow.getBounds());
+  ipcMain.handle("initSettings", function () {
+    nativeTheme.themeSource = store.get("app:theme") ?? "dark";
+    return {
+      ["editor:value"]: store.get("editor:value") ?? "",
+      ["editor:spellCheck"]: store.get("editor:spellCheck") ?? false,
+      ["editor:selectionStart"]: store.get("editor:selectionStart") ?? 0,
+      ["editor:selectionEnd"]: store.get("editor:selectionEnd") ?? 0,
+      ["editor:scrollTop"]: store.get("editor:scrollTop") ?? 0,
+    };
   });
 
-  currentWindow.on("closed", function () {
+  ipcMain.handle("setSetting", function (_event, { key, value }) {
+    return store.set(key, value);
+  });
+
+  mainWindow.on("close", function () {
+    store.set(WINDOW_BONDS_KEY, mainWindow.getBounds());
+  });
+
+  mainWindow.on("closed", function () {
     app.quit();
   });
 
-  currentWindow.on("hide", function () {
-    isShown = false;
-  });
-
-  currentWindow.on("show", function () {
-    isShown = true;
-  });
+  buildMenu(mainWindow);
 
   if (process.env.NODE_ENV !== "development") {
-    mainWindow.loadFile(path.join(__dirname, "dist", "index.html"));
+    await mainWindow.loadFile(path.join(__dirname, "dist", "index.html"));
   } else {
-    mainWindow.loadURL("http://localhost:5000/");
+    await mainWindow.loadURL("http://localhost:5000/");
   }
 
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
 
 app.whenReady().then(() => {
@@ -81,5 +89,76 @@ app.whenReady().then(() => {
 });
 
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") app.quit();
+  if (!isMac) app.quit();
 });
+
+function buildMenu(window) {
+  const template = [
+    ...(isMac
+      ? [
+          {
+            label: app.name,
+            submenu: [
+              { role: "about" },
+              { type: "separator" },
+              { role: "quit" },
+            ],
+          },
+        ]
+      : []),
+    {
+      label: "Settings",
+      submenu: [
+        {
+          label: "Theme",
+          submenu: [
+            {
+              label: "Dark",
+              type: "checkbox",
+              checked:
+                store.get("app:theme") === "dark" || !store.get("app:theme"),
+              click: () => {
+                nativeTheme.themeSource = "dark";
+                store.set("app:theme", "dark");
+                buildMenu(window);
+              },
+            },
+            {
+              label: "Light",
+              type: "checkbox",
+              checked: store.get("app:theme") === "light",
+              click: () => {
+                nativeTheme.themeSource = "light";
+                store.set("app:theme", "light");
+                buildMenu(window);
+              },
+            },
+            {
+              label: "System",
+              type: "checkbox",
+              checked: store.get("app:theme") === "system",
+              click: () => {
+                nativeTheme.themeSource = "system";
+                store.set("app:theme", "system");
+                buildMenu(window);
+              },
+            },
+          ],
+        },
+        {
+          label: "Spellcheck",
+          type: "checkbox",
+          checked: store.get("app:spellCheck") === true,
+          click: (event) => {
+            window.webContents.send("setSpellcheck", event.checked);
+            store.set("app:spellCheck", event.checked);
+            buildMenu(window);
+          },
+        },
+      ],
+    },
+  ];
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+}

@@ -1,6 +1,6 @@
 import { debounce } from "debounce";
 import { writable, get } from "svelte/store";
-import { getItem, setItem } from "../utils/persistenceStorage";
+import { setItem } from "../utils/persistenceStorage";
 
 const VALUE_KEY = "editor:value";
 const SPELLCHECK_KEY = "editor:spellCheck";
@@ -51,14 +51,16 @@ export function focus() {
   get(ref).scrollTop = get(scrollTop);
 }
 
-export function init() {
-  focus();
+window.ipcRenderer.on("setSpellcheck", (event, value) => {
+  spellcheck.set(value);
+});
 
-  const _selectionStart = getItem<number>(SELECTION_START_KEY);
-  const _selectionEnd = getItem<number>(SELECTION_END_KEY);
-  const _scrollTop = getItem<number>(SCROLL_KEY);
-  const _value = getItem<string>(VALUE_KEY);
-  const _spellCheck = getItem<boolean>(SPELLCHECK_KEY);
+window.ipcRenderer.invoke("initSettings").then((settings) => {
+  const _selectionStart = settings[SELECTION_START_KEY];
+  const _selectionEnd = settings[SELECTION_END_KEY];
+  const _scrollTop = settings[SCROLL_KEY];
+  const _value = settings[VALUE_KEY];
+  const _spellCheck = settings[SPELLCHECK_KEY];
 
   if (_value !== null) {
     get(ref).value = _value;
@@ -76,4 +78,6 @@ export function init() {
   if (_scrollTop !== null) {
     get(ref).scrollTop = _scrollTop;
   }
-}
+
+  focus();
+});

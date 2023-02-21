@@ -5,22 +5,8 @@ type JSONValue =
   | { [x: string]: JSONValue }
   | Array<JSONValue>;
 
-function setItem(key: string, value: JSONValue) {
-  window.localStorage.setItem(key, JSON.stringify(value));
+async function setItem(key: string, value: JSONValue) {
+  return window.ipcRenderer.invoke("setSetting", { key, value });
 }
 
-function getItem<T>(key: string): T | null {
-  const item = window.localStorage.getItem(key);
-
-  if (item !== null) {
-    try {
-      return JSON.parse(item) as T;
-    } catch (error) {
-      return null;
-    }
-  }
-
-  return null;
-}
-
-export { setItem, getItem };
+export { setItem };

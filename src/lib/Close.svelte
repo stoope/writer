@@ -3,7 +3,7 @@
   import IconButton from "./IconButton.svelte";
 
   function toggle() {
-    window.electron.close();
+    window.ipcRenderer.invoke("close");
     focus();
   }
 </script>

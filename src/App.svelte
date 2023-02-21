@@ -1,23 +1,13 @@
 <script lang="ts">
   import "@fontsource/fira-code";
-  import DarkMode from "./lib/DarkMode.svelte";
   import Editor from "./lib/Editor.svelte";
-  import Spellcheck from "./lib/Spellcheck.svelte";
   import Statistics from "./lib/Statistics.svelte";
   import Stopwatch from "./lib/Stopwatch.svelte";
-  import Time from "./lib/Time.svelte";
   import Titlebar from "./lib/Titlebar.svelte";
 </script>
 
 <main class="container">
   <Titlebar />
-  <div class="time">
-    <Time />
-  </div>
-  <div class="actions">
-    <DarkMode />
-    <Spellcheck />
-  </div>
   <div class="editor">
     <Editor />
   </div>
@@ -33,18 +23,17 @@
   .container {
     -webkit-app-region: no-drag;
     max-width: 750px;
-    padding: 2rem 1rem;
+    padding: 2.5rem 2rem 1rem 2rem;
     height: 100%;
     margin-left: auto;
     margin-right: auto;
     display: grid;
-    grid-template-columns: auto auto 1fr;
-    grid-template-rows: auto 1fr auto;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr auto;
     gap: 1rem;
     grid-template-areas:
-      "time actions actions"
-      "editor editor editor"
-      "stopwatch statistics statistics";
+      "editor editor"
+      "stopwatch statistics";
   }
 
   .editor {
@@ -53,40 +42,26 @@
 
   .stopwatch {
     grid-area: stopwatch;
-  }
-
-  .time {
-    grid-area: time;
-    display: grid;
-    align-items: center;
+    user-select: none;
   }
 
   .statistics {
     grid-area: statistics;
     margin-left: auto;
-  }
-
-  .actions {
-    grid-area: actions;
-    display: flex;
-    justify-content: flex-end;
+    user-select: none;
+    display: grid;
     align-items: center;
-  }
-
-  :global(.actions > :not(:last-child)) {
-    margin-right: 0.5rem;
   }
 
   @media only screen and (max-width: 560px) {
     .container {
-      grid-template-columns: 1fr auto 1fr;
-      grid-template-rows: auto 1fr auto auto;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr auto auto;
       gap: 1rem;
       grid-template-areas:
-        "time actions actions"
-        "editor editor editor"
-        "stopwatch stopwatch stopwatch"
-        "statistics statistics statistics";
+        "editor"
+        "stopwatch"
+        "statistics";
     }
 
     .statistics {
