@@ -96,7 +96,9 @@ const createWindow = async () => {
     await mainWindow.loadURL("http://localhost:5000/");
   }
 
-  mainWindow.webContents.openDevTools();
+  if (process.env.NODE_ENV === "development") {
+    mainWindow.webContents.openDevTools();
+  }
 };
 
 app.whenReady().then(() => {
