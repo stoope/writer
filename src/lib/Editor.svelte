@@ -4,7 +4,6 @@
   import {
     ref,
     value,
-    spellcheck,
     scrollTop,
     handleSelectionChange,
     focus,
@@ -28,7 +27,7 @@
 <textarea
   bind:this={$ref}
   bind:value={$value}
-  spellcheck={$spellcheck}
+  spellcheck={false}
   on:scroll={handleScroll}
   class="editor"
   autocomplete="off"

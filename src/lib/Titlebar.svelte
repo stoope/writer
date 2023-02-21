@@ -2,15 +2,19 @@
   import Close from "./Close.svelte";
   import Fullscreen from "./Fullscreen.svelte";
   import Hide from "./Hide.svelte";
+  import Theme from "./Theme.svelte";
   import Time from "./Time.svelte";
 </script>
 
 <div class="container">
-  <div class="time"><Time /></div>
+  <div class="left control">
+    <div class="control"><Time /></div>
+    <div class="control"><Theme /></div>
+  </div>
 
-  <Close />
-  <Hide />
-  <Fullscreen />
+  <div class="control"><Close /></div>
+  <div class="control"><Hide /></div>
+  <div class="control"><Fullscreen /></div>
 </div>
 
 <style>
@@ -27,8 +31,12 @@
     -webkit-app-region: drag;
   }
 
-  .time {
-    display: grid;
+  .control {
+    margin-right: 0.5rem;
+  }
+
+  .left {
+    display: flex;
     align-items: center;
     user-select: none;
     margin-left: 0.5rem;
