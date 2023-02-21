@@ -1,6 +1,24 @@
 <script lang="ts">
   import "@fontsource/courier-prime";
-  import { ref, value, spellcheck, scrollTop } from "../stores/editor";
+  import { onMount } from "svelte";
+  import {
+    ref,
+    value,
+    spellcheck,
+    scrollTop,
+    handleSelectionChange,
+    focus,
+  } from "../stores/editor";
+
+  onMount(() => {
+    focus();
+
+    document.addEventListener("selectionchange", handleSelectionChange);
+
+    return () => {
+      document.removeEventListener("selectionchange", handleSelectionChange);
+    };
+  });
 
   function handleScroll(event: Event) {
     scrollTop.set((event.target as HTMLTextAreaElement).scrollTop);

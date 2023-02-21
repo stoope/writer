@@ -78,6 +78,4 @@ window.ipcRenderer.invoke("initSettings").then((settings) => {
   if (_scrollTop !== null) {
     get(ref).scrollTop = _scrollTop;
   }
-
-  focus();
 });

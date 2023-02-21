@@ -11,20 +11,20 @@ const isMac = process.platform === "darwin";
 if (!store.has("app:theme")) {
   store.set("app:theme", "dark");
 }
-if (!store.has("app:value")) {
-  store.set("app:value", "");
+if (!store.has("editor:value")) {
+  store.set("editor:value", "");
 }
-if (!store.has("app:spellCheck")) {
-  store.set("app:spellCheck", false);
+if (!store.has("editor:spellCheck")) {
+  store.set("editor:spellCheck", false);
 }
-if (!store.has("app:selectionStart")) {
-  store.set("app:selectionStart", 0);
+if (!store.has("editor:selectionStart")) {
+  store.set("editor:selectionStart", 0);
 }
-if (!store.has("app:selectionEnd")) {
-  store.set("app:selectionEnd", 0);
+if (!store.has("editor:selectionEnd")) {
+  store.set("editor:selectionEnd", 0);
 }
-if (!store.has("app:scrollTop")) {
-  store.set("app:scrollTop", 0);
+if (!store.has("editor:scrollTop")) {
+  store.set("editor:scrollTop", 0);
 }
 
 const createWindow = async () => {
@@ -168,10 +168,10 @@ function buildMenu(window) {
         {
           label: "Spellcheck",
           type: "checkbox",
-          checked: store.get("app:spellCheck") === true,
+          checked: store.get("editor:spellCheck") === true,
           click: (event) => {
             window.webContents.send("setSpellcheck", event.checked);
-            store.set("app:spellCheck", event.checked);
+            store.set("editor:spellCheck", event.checked);
             buildMenu(window);
           },
         },
