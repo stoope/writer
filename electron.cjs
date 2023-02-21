@@ -8,6 +8,25 @@ const WINDOW_BONDS_KEY = "editor:winBounds";
 
 const isMac = process.platform === "darwin";
 
+if (!store.has("app:theme")) {
+  store.set("app:theme", "dark");
+}
+if (!store.has("app:value")) {
+  store.set("app:value", "");
+}
+if (!store.has("app:spellCheck")) {
+  store.set("app:spellCheck", false);
+}
+if (!store.has("app:selectionStart")) {
+  store.set("app:selectionStart", 0);
+}
+if (!store.has("app:selectionEnd")) {
+  store.set("app:selectionEnd", 0);
+}
+if (!store.has("app:scrollTop")) {
+  store.set("app:scrollTop", 0);
+}
+
 const createWindow = async () => {
   const windowBound = store.get(WINDOW_BONDS_KEY) ?? {};
 
@@ -47,13 +66,13 @@ const createWindow = async () => {
   });
 
   ipcMain.handle("initSettings", function () {
-    nativeTheme.themeSource = store.get("app:theme") ?? "dark";
+    nativeTheme.themeSource = store.get("app:theme");
     return {
-      ["editor:value"]: store.get("editor:value") ?? "",
-      ["editor:spellCheck"]: store.get("editor:spellCheck") ?? false,
-      ["editor:selectionStart"]: store.get("editor:selectionStart") ?? 0,
-      ["editor:selectionEnd"]: store.get("editor:selectionEnd") ?? 0,
-      ["editor:scrollTop"]: store.get("editor:scrollTop") ?? 0,
+      ["editor:value"]: store.get("editor:value"),
+      ["editor:spellCheck"]: store.get("editor:spellCheck"),
+      ["editor:selectionStart"]: store.get("editor:selectionStart"),
+      ["editor:selectionEnd"]: store.get("editor:selectionEnd"),
+      ["editor:scrollTop"]: store.get("editor:scrollTop"),
     };
   });
 
@@ -115,8 +134,7 @@ function buildMenu(window) {
             {
               label: "Dark",
               type: "checkbox",
-              checked:
-                store.get("app:theme") === "dark" || !store.get("app:theme"),
+              checked: store.get("app:theme") === "dark",
               click: () => {
                 nativeTheme.themeSource = "dark";
                 store.set("app:theme", "dark");
@@ -154,6 +172,21 @@ function buildMenu(window) {
             store.set("app:spellCheck", event.checked);
             buildMenu(window);
           },
+        },
+        {
+          label: "Zoom In",
+          type: "normal",
+          role: "zoomIn",
+        },
+        {
+          label: "Reset zoom",
+          type: "normal",
+          role: "resetZoom",
+        },
+        {
+          label: "Zoom Out",
+          type: "normal",
+          role: "zoomOut",
         },
       ],
     },
