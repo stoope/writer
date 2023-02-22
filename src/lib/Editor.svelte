@@ -39,7 +39,9 @@
   .editor {
     font-family: "Courier Prime", monospace;
     font-size: 1.2rem;
-    width: 100%;
+    width: calc(100% - 10px);
+    position: relative;
+    right: -5px;
     height: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -48,6 +50,8 @@
     background: transparent;
     border: 0;
     color: var(--foreground);
+    overflow-y: overlay;
+    padding-right: 10px;
   }
   .editor::-webkit-scrollbar-track {
     border: none;
