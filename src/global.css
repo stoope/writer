@@ -54,7 +54,7 @@ html,
 html *,
 html *:before,
 html *:after {
-  transition: color 200ms, background-color 200ms !important;
+  transition: color 200ms, background-color 200ms, opacity 200ms !important;
 }
 
 .cyan-color {

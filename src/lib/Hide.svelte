@@ -1,16 +1,23 @@
 <script lang="ts">
   import { focus } from "../stores/editor";
+  import { fullscreen } from "../stores/app";
   import IconButton from "./IconButton.svelte";
 
   function toggle() {
     window.ipcRenderer.invoke("minimize");
+
     focus();
   }
 </script>
 
 <IconButton
+  disabled={$fullscreen}
   clickHandler={toggle}
-  style="background-color: var(--orange); border-radius: 50%; color: rgb(34, 33, 44); padding: 3px; -webkit-app-region: no-drag;"
+  style={`background-color: ${
+    $fullscreen ? "rgba(var(--comment-rgb), 0.2)" : "var(--orange)"
+  }; border-radius: 50%; color: rgb(34, 33, 44); padding: 3px; -webkit-app-region: no-drag; ${
+    $fullscreen ? "opacity: 0.3;" : ""
+  }`}
   title="Minimize"
 >
   <svg

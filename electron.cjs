@@ -70,6 +70,7 @@ const createWindow = async () => {
       ["editor:selectionStart"]: store.get("editor:selectionStart"),
       ["editor:selectionEnd"]: store.get("editor:selectionEnd"),
       ["editor:scrollTop"]: store.get("editor:scrollTop"),
+      fullscreen: mainWindow.isFullScreen(),
     };
   });
 

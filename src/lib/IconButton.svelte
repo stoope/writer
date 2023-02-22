@@ -23,6 +23,9 @@
     align-items: center;
     justify-content: center;
   }
+  .container:disabled {
+    cursor: default;
+  }
   .selected {
     color: var(--accent);
   }
