@@ -20,4 +20,17 @@ module.exports = {
       config: {},
     },
   ],
+  publishers: [
+    {
+      name: "@electron-forge/publisher-github",
+      config: {
+        repository: {
+          owner: "stoope",
+          name: "writer",
+        },
+        prerelease: false,
+        draft: false,
+      },
+    },
+  ],
 };
