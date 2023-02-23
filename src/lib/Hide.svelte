@@ -33,8 +33,8 @@
     border-radius: 50%;
     padding: 3px;
     -webkit-app-region: no-drag;
-    color: var(--background-dark);
-    background-color: var(--orange);
+    color: var(--black);
+    background-color: rgb(var(--orange-rgb));
   }
   .container :global(.hide-button--fullscreen) {
     opacity: 0.3;

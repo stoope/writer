@@ -45,9 +45,9 @@
 
 <style>
   .container :global(.fullscreen-button) {
-    background-color: var(--green);
+    background-color: rgb(var(--green-rgb));
     border-radius: 50%;
-    color: var(--background-dark);
+    color: var(--black);
     padding: 3px;
     -webkit-app-region: no-drag;
   }

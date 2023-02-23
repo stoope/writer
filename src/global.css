@@ -1,16 +1,10 @@
 html {
   --background: rgb(var(--background-rgb));
   --foreground: rgb(var(--foreground-rgb));
-  --background-dark: rgb(var(--background-dark-rgb));
-  --foreground-dark: rgb(var(--foreground-dark-rgb));
+  --accent: var(--cyan);
+  --black: rgb(var(--black-rgb));
+  --white: rgb(var(--white-rgb));
   --comment: rgb(var(--comment-rgb));
-  --cyan: rgb(var(--cyan-rgb));
-  --green: rgb(var(--green-rgb));
-  --orange: rgb(var(--orange-rgb));
-  --pink: rgb(var(--pink-rgb));
-  --purple: rgb(var(--purple-rgb));
-  --red: rgb(var(--red-rgb));
-  --yellow: rgb(var(--yellow-rgb));
   --comment-rgb: 121, 112, 169;
   --selection-rgb: 69, 65, 88;
   --cyan-rgb: 128, 255, 234;
@@ -20,26 +14,47 @@ html {
   --purple-rgb: 149, 128, 255;
   --red-rgb: 255, 149, 128;
   --yellow-rgb: 255, 255, 128;
-  --background-dark-rgb: 34, 33, 44;
-  --foreground-dark-rgb: 248, 248, 242;
+  --black-rgb: 34, 33, 44;
+  --white-rgb: 248, 248, 242;
+  --selection-rgb-light: 176, 172, 194;
+  --cyan-rgb-light: 0, 229, 191;
+  --green-rgb-light: 18, 229, 0;
+  --orange-rgb-light: 229, 133, 0;
+  --pink-rgb-light: 229, 0, 113;
+  --purple-rgb-light: 37, 0, 229;
+  --red-rgb-light: 229, 37, 0;
+  --yellow-rgb-light: 229, 229, 0;
   -webkit-app-region: drag;
 }
 
 @media (prefers-color-scheme: dark) {
   html {
-    --background-rgb: 34, 33, 44;
-    --foreground-rgb: 248, 248, 242;
-    --accent: var(--cyan);
+    --background-rgb: var(--black-rgb);
+    --foreground-rgb: var(--white-rgb);
     --selection: rgb(var(--selection-rgb));
+    --cyan: rgb(var(--cyan-rgb));
+    --green: rgb(var(--green-rgb));
+    --orange: rgb(var(--orange-rgb));
+    --pink: rgb(var(--pink-rgb));
+    --purple: rgb(var(--purple-rgb));
+    --red: rgb(var(--red-rgb));
+    --yellow: rgb(var(--yellow-rgb));
   }
 }
 
 @media (prefers-color-scheme: light) {
   html {
-    --background-rgb: 248, 248, 242;
-    --foreground-rgb: 34, 33, 44;
-    --accent: #a99f70;
-    --selection: rgba(var(--selection-rgb), 0.3);
+    --background-rgb: var(--white-rgb);
+    --foreground-rgb: var(--black-rgb);
+    --accent: var(--orange);
+    --selection: rgb(var(--selection-rgb-light));
+    --cyan: rgb(var(--cyan-rgb-light));
+    --green: rgb(var(--green-rgb-light));
+    --orange: rgb(var(--orange-rgb-light));
+    --pink: rgb(var(--pink-rgb-light));
+    --purple: rgb(var(--purple-rgb-light));
+    --red: rgb(var(--red-rgb-light));
+    --yellow: rgb(var(--yellow-rgb-light));
   }
 }
 
@@ -47,7 +62,7 @@ html,
 html *,
 html *:before,
 html *:after {
-  transition: color 200ms, background-color 200ms, opacity 200ms !important;
+  transition: color 100ms, background-color 100ms, opacity 100ms !important;
 }
 
 .cyan-color {

@@ -24,10 +24,10 @@
 
 <style>
   .container :global(.close-button) {
-    background-color: var(--red);
+    background-color: rgb(var(--red-rgb));
     border-radius: 50%;
     padding: 3px;
     -webkit-app-region: no-drag;
-    color: var(--background-dark);
+    color: var(--black);
   }
 </style>
