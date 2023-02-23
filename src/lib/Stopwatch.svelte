@@ -65,7 +65,7 @@
   </span>
   <div>
     {#if running}
-      <IconButton selected={running} clickHandler={pauseTimer}>
+      <IconButton selected={running} on:click={pauseTimer}>
         <svg
           width={24}
           height={24}
@@ -80,7 +80,7 @@
         </svg></IconButton
       >
     {:else}
-      <IconButton selected={running} clickHandler={startTimer}>
+      <IconButton selected={running} on:click={startTimer}>
         <svg
           width={24}
           height={24}
@@ -97,7 +97,7 @@
     {/if}
   </div>
   <div>
-    <IconButton selected={running} clickHandler={resetTimer}>
+    <IconButton selected={running} on:click={resetTimer}>
       <svg
         width={24}
         height={24}

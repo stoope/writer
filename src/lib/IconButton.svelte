@@ -1,13 +1,13 @@
 <script lang="ts">
+  import { classnames } from "./utils/classnames";
   export let selected = false;
-  export let clickHandler = undefined;
 </script>
 
 <button
-  class="container"
-  class:selected
-  on:click={clickHandler}
   {...$$restProps}
+  class={classnames("container", $$restProps.class)}
+  class:selected
+  on:click
 >
   <slot />
 </button>

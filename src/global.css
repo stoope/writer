@@ -1,6 +1,8 @@
 html {
   --background: rgb(var(--background-rgb));
   --foreground: rgb(var(--foreground-rgb));
+  --background-dark: rgb(var(--background-dark-rgb));
+  --foreground-dark: rgb(var(--foreground-dark-rgb));
   --comment: rgb(var(--comment-rgb));
   --cyan: rgb(var(--cyan-rgb));
   --green: rgb(var(--green-rgb));
@@ -9,17 +11,6 @@ html {
   --purple: rgb(var(--purple-rgb));
   --red: rgb(var(--red-rgb));
   --yellow: rgb(var(--yellow-rgb));
-  --background: rgb(var(--background-rgb));
-  --foreground-transparent: rgba(var(--foreground-rgb), 0.1);
-  --comment-transparent: rgba(var(--comment-rgb), 0.1);
-  --selection-transparent: rgba(var(--selection-rgb), 0.1);
-  --cyan-transparent: rgba(var(--cyan-rgb), 0.1);
-  --green-transparent: rgba(var(--green-rgb), 0.1);
-  --orange-transparent: rgba(var(--orange-rgb), 0.1);
-  --pink-transparent: rgba(var(--pink-rgb), 0.1);
-  --purple-transparent: rgba(var(--purple-rgb), 0.1);
-  --red-transparent: rgba(var(--red-rgb), 0.1);
-  --yellow-transparent: rgba(var(--yellow-rgb), 0.1);
   --comment-rgb: 121, 112, 169;
   --selection-rgb: 69, 65, 88;
   --cyan-rgb: 128, 255, 234;
@@ -29,6 +20,8 @@ html {
   --purple-rgb: 149, 128, 255;
   --red-rgb: 255, 149, 128;
   --yellow-rgb: 255, 255, 128;
+  --background-dark-rgb: 34, 33, 44;
+  --foreground-dark-rgb: 248, 248, 242;
   -webkit-app-region: drag;
 }
 

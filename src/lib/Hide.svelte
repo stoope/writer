@@ -2,6 +2,7 @@
   import { focus } from "./stores/editor";
   import { fullscreen } from "./stores/app";
   import IconButton from "./IconButton.svelte";
+  import { classnames } from "./utils/classnames";
 
   function toggle() {
     window.ipcRenderer.invoke("minimize");
@@ -10,21 +11,33 @@
   }
 </script>
 
-<IconButton
-  disabled={$fullscreen}
-  clickHandler={toggle}
-  style={`background-color: ${
-    $fullscreen ? "rgba(var(--comment-rgb), 0.2)" : "var(--orange)"
-  }; border-radius: 50%; color: rgb(34, 33, 44); padding: 3px; -webkit-app-region: no-drag; ${
-    $fullscreen ? "opacity: 0.3;" : ""
-  }`}
-  title="Minimize"
->
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={10}
-    height={10}
-    viewBox="0 0 24 24"
-    ><path d="M2 12a1 1 0 0 1 1-1h18a1 1 0 0 1 0 2H3a1 1 0 0 1-1-1Z" /></svg
-  ></IconButton
->
+<div class="container">
+  <IconButton
+    disabled={$fullscreen}
+    on:click={toggle}
+    class={classnames("hide-button", $fullscreen && "hide-button--fullscreen")}
+    title="Minimize"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={10}
+      height={10}
+      viewBox="0 0 24 24"
+      ><path d="M2 12a1 1 0 0 1 1-1h18a1 1 0 0 1 0 2H3a1 1 0 0 1-1-1Z" /></svg
+    ></IconButton
+  >
+</div>
+
+<style>
+  .container :global(.hide-button) {
+    border-radius: 50%;
+    padding: 3px;
+    -webkit-app-region: no-drag;
+    color: var(--background-dark);
+    background-color: var(--orange);
+  }
+  .container :global(.hide-button--fullscreen) {
+    opacity: 0.3;
+    background-color: rgba(var(--comment-rgb), 0.2);
+  }
+</style>
