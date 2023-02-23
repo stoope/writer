@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { focus } from "../stores/editor";
-  import { fullscreen } from "../stores/app";
+  import { focus } from "./stores/editor";
+  import { fullscreen } from "./stores/app";
   import IconButton from "./IconButton.svelte";
 
   function toggle() {

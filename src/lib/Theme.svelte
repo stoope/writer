@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { theme } from "../stores/app";
+  import { theme } from "./stores/app";
   import IconButton from "./IconButton.svelte";
 
   function toggle() {

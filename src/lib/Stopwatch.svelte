@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { focus } from "../stores/editor";
+  import { focus } from "./stores/editor";
   import IconButton from "./IconButton.svelte";
 
   let timerID;

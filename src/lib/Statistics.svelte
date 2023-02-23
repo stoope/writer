@@ -1,12 +1,11 @@
 <script lang="ts">
-  import "@fontsource/courier-prime";
   import { get } from "svelte/store";
-  import { selectionEnd, selectionStart, value } from "../stores/editor";
-  import { calculatePosition } from "../utils/calculatePosition";
-  import { countCharacters } from "../utils/countCharacters";
-  import { countParagraphs } from "../utils/countParagraphs";
-  import { countSentences } from "../utils/countSentences";
-  import { countWords } from "../utils/countWords";
+  import { selectionEnd, selectionStart, value } from "./stores/editor";
+  import { calculatePosition } from "./utils/calculatePosition";
+  import { countCharacters } from "./utils/countCharacters";
+  import { countParagraphs } from "./utils/countParagraphs";
+  import { countSentences } from "./utils/countSentences";
+  import { countWords } from "./utils/countWords";
 
   let characters = 0;
   let words = 0;

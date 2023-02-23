@@ -7,7 +7,7 @@
     scrollTop,
     handleSelectionChange,
     focus,
-  } from "../stores/editor";
+  } from "./stores/editor";
 
   onMount(() => {
     focus();
