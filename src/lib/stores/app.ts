@@ -1,5 +1,4 @@
-import { debounce } from "debounce";
-import { writable, get } from "svelte/store";
+import { writable } from "svelte/store";
 import { setItem } from "../utils/persistenceStorage";
 
 const THEME_KEY = "app:theme";

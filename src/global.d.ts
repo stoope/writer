@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 declare interface Window {
   ipcRenderer: {
     invoke(channel: string, ...args: any[]): Promise<any>;
