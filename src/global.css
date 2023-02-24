@@ -1,4 +1,4 @@
-html {
+:root {
   --background: rgb(var(--background-rgb));
   --foreground: rgb(var(--foreground-rgb));
   --accent: var(--cyan);
@@ -28,7 +28,7 @@ html {
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
+  :root {
     --background-rgb: var(--black-rgb);
     --foreground-rgb: var(--white-rgb);
     --selection: rgb(var(--selection-rgb));
@@ -43,7 +43,7 @@ html {
 }
 
 @media (prefers-color-scheme: light) {
-  html {
+  :root {
     --background-rgb: var(--white-rgb);
     --foreground-rgb: var(--black-rgb);
     --accent: var(--orange);
@@ -62,60 +62,13 @@ html,
 html *,
 html *:before,
 html *:after {
-  transition: color 100ms, background-color 100ms, opacity 100ms !important;
-}
-
-.cyan-color {
-  color: var(--cyan);
-}
-
-.green-color {
-  color: var(--green);
-}
-
-.orange-color {
-  color: var(--orange);
-}
-
-.pink-color {
-  color: var(--pink);
-}
-
-.purple-color {
-  color: var(--purple);
-}
-
-.red-color {
-  color: var(--red);
-}
-
-.yellow-color {
-  color: var(--yellow);
-}
-
-.background-color {
-  color: var(--background);
-}
-
-.foreground-color {
-  color: var(--foreground);
-}
-
-.comment-color {
-  color: var(--comment);
-}
-
-.selection-color {
-  color: var(--selection);
+  transition: color 100ms, background-color 100ms, opacity 100ms;
 }
 
 html {
-  color-scheme: dark;
   background-color: var(--background);
   color: var(--foreground);
   font-size: 16px;
-  padding: env(safe-area-inset-top) env(safe-area-inset-right)
-    env(safe-area-inset-bottom) env(safe-area-inset-left);
   font-family: "Fira Code", monospace;
 }
 
