@@ -92,7 +92,7 @@ const createWindow = async () => {
   if (process.env.NODE_ENV !== "development") {
     await mainWindow.loadFile(path.join(__dirname, "dist", "index.html"));
   } else {
-    await mainWindow.loadURL("http://localhost:5000/");
+    await mainWindow.loadURL("http://localhost:3000/");
   }
 
   if (process.env.NODE_ENV === "development") {
