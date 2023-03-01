@@ -12,8 +12,10 @@
     <div class="control"><Theme /></div>
   </div>
 
-  <div class="control"><Close /></div>
-  <div class="control"><Hide /></div>
+  {#if !import.meta.env.VITE_WEB}
+    <div class="control"><Close /></div>
+    <div class="control"><Hide /></div>
+  {/if}
   <div class="control"><Fullscreen /></div>
 </div>
 

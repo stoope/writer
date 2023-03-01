@@ -8,22 +8,6 @@ const WINDOW_BONDS_KEY = "editor:winBounds";
 
 const isMac = process.platform === "darwin";
 
-if (!store.has("app:theme")) {
-  store.set("app:theme", "system");
-}
-if (!store.has("editor:value")) {
-  store.set("editor:value", "");
-}
-if (!store.has("editor:selectionStart")) {
-  store.set("editor:selectionStart", 0);
-}
-if (!store.has("editor:selectionEnd")) {
-  store.set("editor:selectionEnd", 0);
-}
-if (!store.has("editor:scrollTop")) {
-  store.set("editor:scrollTop", 0);
-}
-
 const createWindow = async () => {
   const windowBound = store.get(WINDOW_BONDS_KEY) ?? {};
 
@@ -62,23 +46,15 @@ const createWindow = async () => {
     mainWindow.minimize();
   });
 
-  ipcMain.handle("initSettings", function () {
-    nativeTheme.themeSource = store.get("app:theme");
-    return {
-      ["editor:value"]: store.get("editor:value"),
-      ["app:theme"]: store.get("app:theme"),
-      ["editor:selectionStart"]: store.get("editor:selectionStart"),
-      ["editor:selectionEnd"]: store.get("editor:selectionEnd"),
-      ["editor:scrollTop"]: store.get("editor:scrollTop"),
-      fullscreen: mainWindow.isFullScreen(),
-    };
-  });
-
   ipcMain.handle("setSetting", function (_event, { key, value }) {
     if (key === "app:theme") {
       nativeTheme.themeSource = value;
     }
     return store.set(key, value);
+  });
+
+  ipcMain.handle("getSetting", function (_event, { key }) {
+    return store.get(key);
   });
 
   mainWindow.on("close", function () {

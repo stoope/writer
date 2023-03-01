@@ -3,7 +3,9 @@
   import IconButton from "./IconButton.svelte";
 
   function toggle() {
-    window.ipcRenderer.invoke("close");
+    if (!import.meta.env.VITE_WEB) {
+      window.ipcRenderer.invoke("close");
+    }
     focus();
   }
 </script>

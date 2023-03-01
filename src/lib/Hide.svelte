@@ -5,7 +5,9 @@
   import { classnames } from "./utils/classnames";
 
   function toggle() {
-    window.ipcRenderer.invoke("minimize");
+    if (!import.meta.env.VITE_WEB) {
+      window.ipcRenderer.invoke("minimize");
+    }
 
     focus();
   }

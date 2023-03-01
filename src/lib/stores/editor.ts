@@ -1,6 +1,6 @@
 import { debounce } from "debounce";
 import { writable, get } from "svelte/store";
-import { setItem } from "../utils/persistenceStorage";
+import { getItem, setItem } from "../utils/persistenceStorage";
 
 const VALUE_KEY = "editor:value";
 const SELECTION_START_KEY = "editor:selectionStart";
@@ -44,15 +44,15 @@ export function focus() {
   get(ref).scrollTop = get(scrollTop);
 }
 
-window.ipcRenderer.invoke("initSettings").then((settings) => {
-  const _selectionStart = settings[SELECTION_START_KEY];
-  const _selectionEnd = settings[SELECTION_END_KEY];
-  const _scrollTop = settings[SCROLL_KEY];
-  const _value = settings[VALUE_KEY];
-
+Promise.all([
+  getItem<string>(VALUE_KEY),
+  getItem<number>(SELECTION_START_KEY),
+  getItem<number>(SELECTION_END_KEY),
+  getItem<number>(SCROLL_KEY),
+]).then(function ([_value, _selectionStart, _selectionEnd, _scrollTop]) {
+  value.set(_value ?? "");
   if (_value !== null) {
     get(ref).value = _value;
-    value.set(_value);
   }
 
   if (_selectionStart !== null && _selectionEnd !== null) {

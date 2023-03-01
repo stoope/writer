@@ -1,26 +1,49 @@
 import { writable } from "svelte/store";
-import { setItem } from "../utils/persistenceStorage";
+import { setItem, getItem } from "../utils/persistenceStorage";
 
 const THEME_KEY = "app:theme";
 
-const setTheme = function (value: string) {
+type Theme = "light" | "dark" | "system";
+
+const setTheme = function (value: Theme) {
   setItem(THEME_KEY, value);
+  switchThemeInApp(value);
 };
 
-export const theme = writable<"light" | "dark" | "system">("system");
+export const theme = writable<Theme>("system");
 export const fullscreen = writable<boolean>(false);
 
-theme.subscribe(setTheme);
-
-window.ipcRenderer.invoke("initSettings").then((settings) => {
-  const _theme = settings[THEME_KEY];
-  const _fullscreen = settings.fullscreen;
-
-  if (_theme !== null) {
-    theme.set(_theme);
+export function switchThemeInApp(value: Theme) {
+  if (import.meta.env.VITE_WEB) {
+    document.body.classList.remove("light-theme");
+    document.body.classList.remove("dark-theme");
+    if (value === "light") {
+      document.body.classList.add("light-theme");
+    } else if (value === "dark") {
+      document.body.classList.add("dark-theme");
+    }
   }
+}
 
-  if (_fullscreen !== null) {
-    fullscreen.set(_fullscreen);
-  }
+getItem<Theme>(THEME_KEY).then(function (_theme) {
+  console.log(_theme);
+  _theme = _theme ?? "system";
+
+  theme.set(_theme ?? "system");
+
+  switchThemeInApp(_theme);
+
+  document.head.insertAdjacentHTML(
+    "beforeend",
+    `<style>
+      html,
+      html *,
+      html *:before,
+      html *:after {
+        transition: color 100ms, background-color 100ms, opacity 100ms;
+      }
+    </style>`
+  );
+
+  theme.subscribe(setTheme);
 });

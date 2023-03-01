@@ -1,4 +1,4 @@
-:root {
+body {
   --background: rgb(var(--background-rgb));
   --foreground: rgb(var(--foreground-rgb));
   --accent: var(--cyan);
@@ -27,8 +27,15 @@
   -webkit-app-region: drag;
 }
 
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-size: 16px;
+  font-family: "Fira Code", monospace;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  body:not(.light-theme) {
     --background-rgb: var(--black-rgb);
     --foreground-rgb: var(--white-rgb);
     --selection: rgb(var(--selection-rgb));
@@ -41,9 +48,21 @@
     --yellow: rgb(var(--yellow-rgb));
   }
 }
+body.dark-theme:not(.light-theme) {
+  --background-rgb: var(--black-rgb);
+  --foreground-rgb: var(--white-rgb);
+  --selection: rgb(var(--selection-rgb));
+  --cyan: rgb(var(--cyan-rgb));
+  --green: rgb(var(--green-rgb));
+  --orange: rgb(var(--orange-rgb));
+  --pink: rgb(var(--pink-rgb));
+  --purple: rgb(var(--purple-rgb));
+  --red: rgb(var(--red-rgb));
+  --yellow: rgb(var(--yellow-rgb));
+}
 
 @media (prefers-color-scheme: light) {
-  :root {
+  body:not(.dark-theme) {
     --background-rgb: var(--white-rgb);
     --foreground-rgb: var(--black-rgb);
     --accent: var(--orange);
@@ -57,19 +76,18 @@
     --yellow: rgb(var(--yellow-rgb-light));
   }
 }
-
-html,
-html *,
-html *:before,
-html *:after {
-  transition: color 100ms, background-color 100ms, opacity 100ms;
-}
-
-html {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-size: 16px;
-  font-family: "Fira Code", monospace;
+body.light-theme:not(.dark-theme) {
+  --background-rgb: var(--white-rgb);
+  --foreground-rgb: var(--black-rgb);
+  --accent: var(--orange);
+  --selection: rgb(var(--selection-rgb-light));
+  --cyan: rgb(var(--cyan-rgb-light));
+  --green: rgb(var(--green-rgb-light));
+  --orange: rgb(var(--orange-rgb-light));
+  --pink: rgb(var(--pink-rgb-light));
+  --purple: rgb(var(--purple-rgb-light));
+  --red: rgb(var(--red-rgb-light));
+  --yellow: rgb(var(--yellow-rgb-light));
 }
 
 * {

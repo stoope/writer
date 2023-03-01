@@ -1,11 +1,25 @@
 <script lang="ts">
   import { focus } from "./stores/editor";
   import { fullscreen } from "./stores/app";
+  import { closeFullscreen, openFullscreen } from "./utils/fullscreen";
   import IconButton from "./IconButton.svelte";
 
   function toggle() {
-    window.ipcRenderer.invoke("toggleFullscreen");
-    fullscreen.update((value) => !value);
+    if (import.meta.env.VITE_WEB) {
+      fullscreen.update((value) => {
+        try {
+          if (value) {
+            closeFullscreen();
+          } else {
+            openFullscreen();
+          }
+          return !value;
+        } catch (error) {}
+      });
+    } else {
+      window.ipcRenderer.invoke("toggleFullscreen");
+      fullscreen.update((value) => !value);
+    }
     focus();
   }
 </script>
