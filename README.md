@@ -6,6 +6,8 @@ I started this project to help myself to improve my writing skills, especially I
 
 The app has statistics that shows how many characters, words, sentences, or paragraphs you have written. It's helpful when you're trying to meet some goals, for example, at least 250 words for IELTS essay part. Moreover, the app has a stopwatch that you can use to track your writing speed or create the pressure to emulate exam conditions.
 
+The app available [online](https://stoope.github.io/writer/). For the better experience, I recommend building your own desktop version
+
 ![Screenshot](preview_dark.png)
 ![Screenshot](preview_light.png)
 
