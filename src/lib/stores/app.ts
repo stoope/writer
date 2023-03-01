@@ -26,7 +26,6 @@ export function switchThemeInApp(value: Theme) {
 }
 
 getItem<Theme>(THEME_KEY).then(function (_theme) {
-  console.log(_theme);
   _theme = _theme ?? "system";
 
   theme.set(_theme ?? "system");
