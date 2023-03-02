@@ -12,15 +12,17 @@
     <title>Writer</title>
     <meta name="description" content="Distraction free writer" />
     <script>
-      const theme = localStorage.getItem("app:theme");
+        document.addEventListener("DOMContentLoaded", function (event) {
+        const theme = localStorage.getItem("app:theme");
 
-      if (theme !== null) {
-        document.body.classList.remove("light-theme");
-        document.body.classList.remove("dark-theme");
-        if (value === "light") {
-          document.body.classList.add("light-theme");
-        } else if (value === "dark") {
-          document.body.classList.add("dark-theme");
+        if (theme !== null) {
+          document.body.classList.remove("light-theme");
+          document.body.classList.remove("dark-theme");
+          if (value === "light") {
+            document.body.classList.add("light-theme");
+          } else if (value === "dark") {
+            document.body.classList.add("dark-theme");
+          }
         }
       }
     </script>
