@@ -1,5 +1,5 @@
 <script lang="ts">
-  import "@fontsource/courier-prime";
+  import "@fontsource/courier-prime/latin-400.css";
   import { onMount } from "svelte";
   import {
     ref,

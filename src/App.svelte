@@ -1,5 +1,5 @@
 <script lang="ts">
-  import "@fontsource/fira-code";
+  import "@fontsource/fira-code/latin-400.css";
   import Editor from "./lib/Editor.svelte";
   import Statistics from "./lib/Statistics.svelte";
   import Stopwatch from "./lib/Stopwatch.svelte";
