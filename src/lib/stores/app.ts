@@ -32,9 +32,10 @@ getItem<Theme>(THEME_KEY).then(function (_theme) {
 
   switchThemeInApp(_theme);
 
-  document.head.insertAdjacentHTML(
-    "beforeend",
-    `<style>
+  requestAnimationFrame(function () {
+    document.head.insertAdjacentHTML(
+      "beforeend",
+      `<style>
       html,
       html *,
       html *:before,
@@ -42,7 +43,8 @@ getItem<Theme>(THEME_KEY).then(function (_theme) {
         transition: color 100ms, background-color 100ms, opacity 100ms;
       }
     </style>`
-  );
+    );
+  });
 
   theme.subscribe(setTheme);
 });
