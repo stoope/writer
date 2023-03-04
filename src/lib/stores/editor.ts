@@ -9,19 +9,19 @@ const SCROLL_KEY = "editor:scrollTop";
 
 const setValue = debounce(function (value: string) {
   setItem(VALUE_KEY, value);
-}, 300);
+}, 100);
 
 const setSelectionStart = debounce(function (value: number) {
   setItem(SELECTION_START_KEY, value);
-}, 300);
+}, 100);
 
 const setSelectionEnd = debounce(function (value: number) {
   setItem(SELECTION_END_KEY, value);
-}, 300);
+}, 100);
 
 const setScrollTop = debounce(function (value: number) {
   setItem(SCROLL_KEY, value);
-}, 300);
+}, 100);
 
 export const ref = writable<HTMLTextAreaElement>();
 export const value = writable("");
