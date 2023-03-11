@@ -4,19 +4,19 @@
   import Hide from "./Hide.svelte";
   import Theme from "./Theme.svelte";
   import Time from "./Time.svelte";
+  import { classnames } from "./utils/classnames";
 </script>
 
-<div class="container">
-  <div class="left control">
-    <div class="control"><Time /></div>
-    <div class="control"><Theme /></div>
-  </div>
-
+<div
+  class={classnames("container", import.meta.env.VITE_WEB && "container-web")}
+>
   {#if !import.meta.env.VITE_WEB}
-    <div class="control"><Close /></div>
-    <div class="control"><Hide /></div>
+    <div class="control close"><Close /></div>
+    <div class="control hide"><Hide /></div>
   {/if}
-  <div class="control"><Fullscreen /></div>
+  <div class="control fullscreen"><Fullscreen /></div>
+  <div class="control time"><Time /></div>
+  <div class="control theme"><Theme /></div>
 </div>
 
 <style>
@@ -25,23 +25,37 @@
     left: 0;
     right: 0;
     top: 0;
-    padding-top: 0.5rem;
+    padding: 0.5rem;
+    display: grid;
+    grid-template-columns: auto auto auto 1fr auto;
+    grid-template-rows: auto;
+    gap: 0.5rem;
+    grid-template-areas: "close hide fullscreen time theme";
+  }
+  .container-web {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "fullscreen time theme";
+  }
+  .close {
+    grid-area: close;
+  }
+  .hide {
+    grid-area: hide;
+  }
+  .fullscreen {
+    grid-area: fullscreen;
+  }
+  .time {
+    grid-area: time;
+  }
+  .theme {
+    grid-area: theme;
+  }
+  .control {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     -webkit-user-select: none;
     -webkit-app-region: drag;
-  }
-
-  .control {
-    margin-right: 0.5rem;
-  }
-
-  .left {
-    display: flex;
-    align-items: center;
-    user-select: none;
-    margin-left: 0.5rem;
-    margin-right: auto;
   }
 </style>
