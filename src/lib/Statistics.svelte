@@ -15,18 +15,18 @@
 
   function calculate() {
     let _value = get(value);
-    let selectedValue = _value;
-    const _selectionEnd = get(selectionEnd);
-    const _selectionStart = get(selectionStart);
+    let _selectionEnd = get(selectionEnd);
+    let _selectionStart = get(selectionStart);
 
-    if (_selectionStart !== _selectionEnd) {
-      selectedValue = selectedValue.substring(_selectionStart, _selectionEnd);
+    if (_selectionEnd == _selectionStart) {
+      _selectionStart = 0;
+      _selectionEnd = _value.length;
     }
 
-    characters = countCharacters(selectedValue);
-    words = countWords(selectedValue);
-    sentences = countSentences(selectedValue);
-    paragraphs = countParagraphs(selectedValue);
+    characters = countCharacters(_value, _selectionStart, _selectionEnd);
+    words = countWords(_value, _selectionStart, _selectionEnd);
+    sentences = countSentences(_value, _selectionStart, _selectionEnd);
+    paragraphs = countParagraphs(_value, _selectionStart, _selectionEnd);
     position = calculatePosition(_value, _selectionEnd);
   }
 
